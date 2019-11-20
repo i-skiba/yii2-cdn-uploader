@@ -7,7 +7,7 @@
         "uploader"
     ],
     "license": "MIT",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Ilya Skiba",
@@ -22,6 +22,11 @@
     "autoload": {
         "psr-4": {
             "kamaelkz\\yii2cdnuploader\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.0-dev"
         }
     }
 }
