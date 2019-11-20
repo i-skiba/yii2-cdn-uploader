@@ -27,6 +27,6 @@ class Bootstrap implements BootstrapInterface
      */
     private function getConfigurations()
     {
-        return require __DIR__ . 'config/main.php';
+        return require __DIR__ . '/config/main.php';
     }
 }
