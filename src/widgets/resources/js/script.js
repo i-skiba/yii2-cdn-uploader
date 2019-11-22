@@ -25,7 +25,7 @@ var componentCdnUploader = {
                     function(response)
                     {
                         if(response.status !== 'success') {
-                            componentNotify.fire(componentNotify.statuses.error, response.message);
+                            componentNotify.pNotify(componentNotify.statuses.error, response.message);
 
                             return;
                         }
@@ -40,7 +40,7 @@ var componentCdnUploader = {
             },
             done : function(e, data) {
                 if(data.result.failure) {
-                    componentNotify.fire(componentNotify.statuses.error, data.result.failure);
+                    componentNotify.pNotify(componentNotify.statuses.error, data.result.failure);
 
                     return;
                 }
@@ -80,7 +80,7 @@ var componentCdnUploader = {
             fail : function(e, data) {
                 var messaga = data.jqXHR.status + ' : ' + data.jqXHR.statusText;
 
-                componentNotify.fire(componentNotify.statuses.error, messaga);
+                componentNotify.pNotify(componentNotify.statuses.error, messaga);
             },
             progressall : function(e, data) {
                 var $self = $(this);
@@ -122,7 +122,7 @@ var componentCdnUploader = {
                 formData,
                 function (response) {
                     if (response.status !== 'success') {
-                        componentNotify.fire(componentNotify.statuses.error, response.message);
+                        componentNotify.pNotify(componentNotify.statuses.error, response.message);
 
                         return;
                     }
