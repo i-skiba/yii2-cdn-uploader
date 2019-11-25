@@ -4,6 +4,7 @@ namespace kamaelkz\yii2cdnuploader;
 
 use Yii;
 use yii\base\BootstrapInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * Первичная настройка компонента
@@ -17,7 +18,24 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        Yii::configure(Yii::$app, $this->getConfigurations());
+        $config = $this->getConfigurations();
+        if(
+            isset(Yii::$app->components)
+            && isset($config['components'])
+        ) {
+            $components = &$config['components'];
+            $components = ArrayHelper::merge(Yii::$app->components, $components);
+        }
+
+        if(
+            isset(Yii::$app->params)
+            && $config['params']
+        ) {
+            $params = &$config['params'];
+            $params = ArrayHelper::merge(Yii::$app->params, $params);
+        }
+
+        Yii::configure(Yii::$app, $config);
     }
 
     /**
