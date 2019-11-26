@@ -24,7 +24,16 @@ class Bootstrap implements BootstrapInterface
         }
 
         foreach ($config as $key => $value) {
-            if(! isset(Yii::$app->{$key})) {
+            switch ($key) {
+                case 'aliases' :
+                    foreach ($config['aliases'] as $alias => $path) {
+                        Yii::setAlias($alias, $path);
+                    }
+
+                    break;
+            }
+
+            if(! property_exists(Yii::$app, $key)) {
                 continue;
             }
 
