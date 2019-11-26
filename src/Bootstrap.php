@@ -19,20 +19,17 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         $config = $this->getConfigurations();
-        if(
-            isset(Yii::$app->components)
-            && isset($config['components'])
-        ) {
-            $components = &$config['components'];
-            $components = ArrayHelper::merge(Yii::$app->components, $components);
+        if(! $config || ! is_array($config)) {
+            return;
         }
 
-        if(
-            isset(Yii::$app->params)
-            && $config['params']
-        ) {
-            $params = &$config['params'];
-            $params = ArrayHelper::merge(Yii::$app->params, $params);
+        foreach ($config as $key => $value) {
+            if(! isset(Yii::$app->{$key})) {
+                continue;
+            }
+
+            $item = &$config[$key];
+            $item = ArrayHelper::merge(Yii::$app->{$key}, $item);
         }
 
         Yii::configure(Yii::$app, $config);
