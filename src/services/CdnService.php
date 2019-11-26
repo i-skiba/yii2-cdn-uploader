@@ -42,7 +42,7 @@ class CdnService extends Service
             throw new CndServiceException('Property $projectName must be set.');
         }
 
-        $this->setConfig(Yii::$app->params['cdn']);
+        $this->setConfig(Yii::$app->params['yii2-cdn-uploader']);
         $this->tokenService = Yii::createObject([
             'class' => JWTService::class,
             'config' => $this->getConfigItem('jwt_settings'),
