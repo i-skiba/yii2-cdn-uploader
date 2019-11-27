@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'bootstrap' => [
+        'log',
+        'kamaelkz\yii2cdnuploader\Yii2CdnUploader',
+    ],
     'modules' => [
         'cdn' => [
             'class' => 'kamaelkz\yii2cdnuploader\modules\uploader\Module'
