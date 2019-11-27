@@ -1,10 +1,16 @@
 Подключение :
 
-project/config/main.php проекта
+backend|frontend/config/main.php
 ```php
-    'bootstrap' => [
+    # конфигурация приложения (из коробки return)
+    $config = [
         ...
-        'kamaelkz\yii2cdnuploader\Bootstrap'
+    ];
+
+    return yii\helpers\ArrayHelper::merge(
         ...
-    ],
+        kamaelkz\yii2cdnuploader\Yii2CdnUploader::getConfiguration(),
+        $config
+        ....
+    );
 ```
