@@ -3,7 +3,7 @@
  *
  * @author kamaelkz <kamaelkz@yandex.kz>
  */
-var legalCdnUtility = {
+var CdnHelper = {
 
     webPrefix: 'web',
     staticPrefix: 'static',
@@ -98,7 +98,7 @@ var legalCdnUtility = {
      * @param string|integer index
      * @param object info
      */
-    fillResponse: function(items, index,  info)
+    fillResponse : function(items, index,  info)
     {
         items[index] = {
             id : info.id,
@@ -147,7 +147,7 @@ var legalCdnUtility = {
      * @param string url
      * @returns string
      */
-    pathFromUrl(domain, url)
+    pathFromUrl : function(domain, url)
     {
         var result = url.replace(domain, '');
 
@@ -160,7 +160,7 @@ var legalCdnUtility = {
      * @param string url
      * @param function callback
      */
-    getBase64(url, callback) {
+    getBase64 : function(url, callback) {
         var xhr = new XMLHttpRequest();
 
         xhr.onload = function() {

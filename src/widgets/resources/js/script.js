@@ -20,7 +20,7 @@ var componentCdnUploader = {
                 var infoContainer = wrapper.find('.file-info');
                 infoContainer.addClass('d-none');
                 var formData = $.parseJSON($(this).attr('data-options'));
-                legalCdnUtility.auth(
+                CdnHelper.auth(
                     formData,
                     function(response)
                     {
@@ -47,7 +47,7 @@ var componentCdnUploader = {
 
                 var $self = $(this);
                 if(data.result.success && data.result.success.length > 0) {
-                    var files = legalCdnUtility.parseResponse(data.result.success);
+                    var files = CdnHelper.parseResponse(data.result.success);
                     var file = files[0];
                     var info = file;
                     if(file.thumbs !== undefined && file.thumbs.thumb !== undefined) {
@@ -118,7 +118,7 @@ var componentCdnUploader = {
             var $wrapper = $(this).closest('.cdn-upload-wrapper');
             var $uploader = $wrapper.find('.cdnuploader');
             var formData = $.parseJSON($uploader.attr('data-options'));
-            legalCdnUtility.auth(
+            CdnHelper.auth(
                 formData,
                 function (response) {
                     if (response.status !== 'success') {
