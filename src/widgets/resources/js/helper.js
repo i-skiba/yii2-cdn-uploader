@@ -127,7 +127,7 @@ var CdnHelper = {
      */
     parseUrl : function(url)
     {
-        return url.replace(this.cdnPrefix, 'static/');
+        return url.replace(this.cdnPrefix, '');
     },
 
     /**

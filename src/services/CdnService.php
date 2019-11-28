@@ -107,11 +107,11 @@ class CdnService extends Service
     public function path(string $path)
     {
         if(strpos($path, '/static/') !== false) {
-            return $this->getConfigItem('proxy.static') . $path;
+            return $this->getConfigItem('proxy.static') . str_replace('/static', null, $path);
         }
 
         if(strpos($path, '/web/') !== false) {
-            return $this->getConfigItem('proxy.web') . $path;
+            return $this->getConfigItem('proxy.web') . str_replace('/web', null, $path);
         }
 
         return null;
