@@ -3,11 +3,16 @@ var componentCdnUploader = {
         $('.cdnuploader').off();
         $('.cdnuploader').fileupload({
             add : function (e, data) {
+                var authUrl;
                 var $self = $(this);
                 var pluginOptions = $(this).attr('plugin-options');
                 if(pluginOptions !== undefined) {
                     var options = JSON.parse(pluginOptions);
                     if( typeof options == "object") {
+                        if(typeof options.url !== 'undefined') {
+                            authUrl = options.url;
+                        }
+
                         $.each(options, function(key, value){
                             $self.fileupload('option', key, value);
                         });
@@ -21,6 +26,7 @@ var componentCdnUploader = {
                 infoContainer.addClass('d-none');
                 var formData = $.parseJSON($(this).attr('data-options'));
                 CdnHelper.auth(
+                    authUrl,
                     formData,
                     function(response)
                     {
@@ -115,10 +121,21 @@ var componentCdnUploader = {
                 return false;
             }
 
+            var authUrl;
             var $wrapper = $(this).closest('.cdn-upload-wrapper');
             var $uploader = $wrapper.find('.cdnuploader');
+            var pluginOptions = $uploader.attr('plugin-options');
+            if(pluginOptions !== undefined) {
+                var options = JSON.parse(pluginOptions);
+                if( typeof options == "object") {
+                    if(typeof options.url !== 'undefined') {
+                        authUrl = options.url;
+                    }
+                }
+            }
             var formData = $.parseJSON($uploader.attr('data-options'));
             CdnHelper.auth(
+                authUrl,
                 formData,
                 function (response) {
                     if (response.status !== 'success') {

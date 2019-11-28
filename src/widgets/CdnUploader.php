@@ -89,9 +89,7 @@ class CdnUploader extends InputWidget
             throw new InvalidConfigException("'model' and 'attribute' properties must be specified.");
         }
 
-        $url = Url::to([$this->url]);
-        $this->options['data-url'] = $url;
-        $this->clientOptions['url'] = $url;
+        $this->options['plugin-options']['url'] = Url::to([$this->url]);
     }
 
     /**

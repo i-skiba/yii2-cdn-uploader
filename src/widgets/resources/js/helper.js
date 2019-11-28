@@ -32,9 +32,9 @@ var CdnHelper = {
      * @param payload
      * @param callback
      */
-    auth : function(payload, callback, async = true) {
+    auth : function(url, payload, callback, async = true) {
         $.ajax({
-            url: '/cdn/',
+            url: url,
             type: 'POST',
             data: payload,
             async: async,
