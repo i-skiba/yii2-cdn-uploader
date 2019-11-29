@@ -61,9 +61,9 @@ use yii\helpers\Html;
             <?php if($pojo->path):?>
                 <?php
                     $options = ['class' => 'card-img img-fluid'];
-                    if($pojo->width && $pojo->height) {
-                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
-                    }
+//                    if($pojo->width && $pojo->height) {
+//                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
+//                    }
                 ?>
                 <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
             <?php endif;?>

@@ -1,23 +1,36 @@
 var componentCdnUploader = {
+    getAuthUrl : function(options) {
+        if(
+            typeof options !== "object"
+            || typeof options.url === 'undefined'
+        ) {
+            return null;
+        }
+
+        return options.url;
+    },
+    getPluginOptions : function($uploader) {
+        var pluginOptions = $uploader.attr('plugin-options');
+        if(pluginOptions === undefined) {
+            return null;
+        }
+
+        return JSON.parse(pluginOptions);
+    },
     initialization : function () {
         $('.cdnuploader').off();
         $('.cdnuploader').fileupload({
             add : function (e, data) {
                 var authUrl;
                 var $self = $(this);
-                var pluginOptions = $(this).attr('plugin-options');
-                if(pluginOptions !== undefined) {
-                    var options = JSON.parse(pluginOptions);
-                    if( typeof options == "object") {
-                        if(typeof options.url !== 'undefined') {
-                            authUrl = options.url;
-                        }
-
-                        $.each(options, function(key, value){
-                            $self.fileupload('option', key, value);
-                        });
-                    }
+                var options = componentCdnUploader.getPluginOptions($(this));
+                if( typeof options == "object") {
+                    $.each(options, function(key, value){
+                        $self.fileupload('option', key, value);
+                    });
+                    authUrl = componentCdnUploader.getAuthUrl(options);
                 }
+
 
                 $self.parent().addClass('disabled');
                 $self.attr('disabled', 'disabled');
@@ -121,21 +134,13 @@ var componentCdnUploader = {
                 return false;
             }
 
-            var authUrl;
             var $wrapper = $(this).closest('.cdn-upload-wrapper');
             var $uploader = $wrapper.find('.cdnuploader');
-            var pluginOptions = $uploader.attr('plugin-options');
-            if(pluginOptions !== undefined) {
-                var options = JSON.parse(pluginOptions);
-                if( typeof options == "object") {
-                    if(typeof options.url !== 'undefined') {
-                        authUrl = options.url;
-                    }
-                }
-            }
+            var options = componentCdnUploader.getPluginOptions($uploader);
+
             var formData = $.parseJSON($uploader.attr('data-options'));
             CdnHelper.auth(
-                authUrl,
+                componentCdnUploader.getAuthUrl(options),
                 formData,
                 function (response) {
                     if (response.status !== 'success') {
