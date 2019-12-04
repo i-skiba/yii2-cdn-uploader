@@ -12,4 +12,8 @@ class CdnHelperBundle extends BaseBundle
     public $js = [
         'js/helper.js',
     ];
+
+    public $depends = [
+        'yii\web\YiiAsset',
+    ];
 }
