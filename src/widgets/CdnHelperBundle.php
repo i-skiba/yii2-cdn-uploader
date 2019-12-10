@@ -10,7 +10,7 @@ use concepture\yii2logic\bundles\Bundle as BaseBundle;
 class CdnHelperBundle extends BaseBundle
 {
     public $js = [
-        'js/helper.js',
+        'script/helper.js',
     ];
 
     public $depends = [

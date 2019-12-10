@@ -11,7 +11,6 @@ use yii\helpers\Html;
             </b>
             <?= Yii::t('yii2admin', 'Выберите файл');?>
             <?= $input ?>
-            <?= $hidden ?>
         </div>
     </div>
     <?php if(! empty($hint)) :?>

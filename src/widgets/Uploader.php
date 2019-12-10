@@ -12,39 +12,21 @@ use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
 /**
  * Аплодер
  *
+ * @todo дополнительные настройки (upload_path, width, height ...)
+ *
  * @author kamaelkz <kamaelkz@yandex.kz>
  */
-class CdnUploader extends Widget
+class Uploader extends Widget
 {
     /**
      * @var string
      */
-    public $url = '/cdn/default/token';
-
-    /**
-     * @var int
-     */
-    public $width = 0;
-
-    /**
-     * @var int
-     */
-    public $height = 0;
+    public $url = '/cdn/default/upload';
 
     /**
      * @var string
      */
-    public $strategy = 'default';
-
-    /**
-     * @var int
-     */
-    public $resizeBigger = true;
-
-    /**
-     * @var string
-     */
-    public static $autoIdPrefix = 'cdnUploader';
+    public static $autoIdPrefix = 'uploader';
 
     /**
      * @inheritdoc
@@ -53,7 +35,7 @@ class CdnUploader extends Widget
     {
         $this->setOptions();
         $this->options['id'] = $this->getId();
-        $this->options['class'] = 'cdnuploader';
+        $this->options['class'] = 'uploader';
         if($this->model->{$this->attribute}) {
             $this->options['hiddenOptions'] = [
                 'value' => $this->model->{$this->attribute}
@@ -86,24 +68,10 @@ class CdnUploader extends Widget
      */
     protected function setOptions()
     {
+        # todo: дополнительные настройки
         $params = [
-            'source' => $this->strategy,
-            'resize_bigger' => (int) $this->resizeBigger,
-            'files_limit' => 1
-        ];
 
-        if($this->width > 0 && $this->height > 0) {
-            $params['size'] = "{$this->width}x{$this->height}";
-            if(! $this->hint) {
-                $this->hint = Yii::t(
-                    'yii2admin', 'Допустимый размер изображения: {w}x{h} px',
-                    [
-                        'w' => $this->width,
-                        'h' => $this->height
-                    ]
-                );
-            }
-        }
+        ];
 
         $this->options = $this->options + ['data-options' => $params];
     }

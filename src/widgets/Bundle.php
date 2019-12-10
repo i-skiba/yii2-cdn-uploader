@@ -10,9 +10,9 @@ use concepture\yii2logic\bundles\Bundle as BaseBundle;
 class Bundle extends BaseBundle
 {
     public $js = [
-        'js/jquery.ui.widget.js',
-        'js/jquery.fileupload.js',
-        'js/script.js',
+        'script/jquery.ui.widget.js',
+        'script/jquery.fileupload.js',
+        'script/uploader.js',
     ];
 
     public $publishOptions = [

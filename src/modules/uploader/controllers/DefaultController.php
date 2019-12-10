@@ -27,7 +27,9 @@ class DefaultController extends Controller
         return [
             [
                 'actions' => [
-                    'token'
+                    'upload',
+                    'delete',
+                    'token',
                 ],
                 'allow' => true,
                 'roles' => [
@@ -61,8 +63,18 @@ class DefaultController extends Controller
         return Yii::$app->cdnService;
     }
 
+    public function actionUpload()
+    {
+
+    }
+
+    public function actionDelete()
+    {
+
+    }
+
     /**
-     * Возвращает токен для авторизации авторизации
+     * Возвращает токен для авторизации
      */
     public function actionToken()
     {
