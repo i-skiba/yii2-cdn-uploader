@@ -14,3 +14,8 @@ backend|frontend/config/main.php
         ....
     );
 ```
+
+
+
+
+//`Для использования локальной загрузки в фаил bootstrap надо добавить альяс @public
