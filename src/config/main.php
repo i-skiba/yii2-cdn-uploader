@@ -15,6 +15,9 @@ return [
             'class' => 'kamaelkz\yii2cdnuploader\services\CdnService',
             'projectName' => getenv('CDN_PROJECTNAME')
         ],
+        'filesService' => [
+            'class' => 'kamaelkz\yii2cdnuploader\services\FilesService'
+        ]
     ],
     'params' => require __DIR__ . '/params.php'
 ];

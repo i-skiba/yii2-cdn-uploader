@@ -29,6 +29,11 @@ class Uploader extends Widget
     public static $autoIdPrefix = 'uploader';
 
     /**
+     * @var string
+     */
+    public $template = 'uploader_view';
+
+    /**
      * @inheritdoc
      */
     public function run()
