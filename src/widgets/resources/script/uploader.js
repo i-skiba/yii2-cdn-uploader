@@ -278,40 +278,23 @@ var componentCdnUploader = {
             var options = componentCdnUploader.getPluginOptions($uploader);
 
             var formData = $.parseJSON($uploader.attr('data-options'));
-            // CdnHelper.auth(
-            //     componentCdnUploader.getAuthUrl(options),
-            //     formData,
-            //     function (response) {
-            //         if (response.status !== 'success') {
-            //             componentNotify.pNotify(componentNotify.statuses.error, response.message);
-            //
-            //             return;
-            //         }
+            $.ajax({
+                url:  '/image-delete/'  + file_id,
+                success: function () {
+                    var $infoContainer = $wrapper.find('.file-info');
+                    var $displayContainer = $wrapper.find('.file-display');
+                    var $nameContainer = $wrapper.find('.file-name');
+                    var $sizeContainer = $wrapper.find('.file-size');
+                    var $deleteControll = $wrapper.find('.file-delete');
 
-                    $.ajax({
-                        url: response.deleteUrl + '/'  + file_id,
-                        type: 'DELETE',
-                        headers: {
-                            'Authorization': 'Bearer ' + response.token
-                        },
-                        success: function () {
-                            var $infoContainer = $wrapper.find('.file-info');
-                            var $displayContainer = $wrapper.find('.file-display');
-                            var $nameContainer = $wrapper.find('.file-name');
-                            var $sizeContainer = $wrapper.find('.file-size');
-                            var $deleteControll = $wrapper.find('.file-delete');
-
-                            $infoContainer.addClass('d-none');
-                            $displayContainer.html('');
-                            $deleteControll.removeAttr('data-file-id');
-                            $nameContainer.html('');
-                            $sizeContainer.html('');
-                            $wrapper.find('input[type=\'hidden\']').val('');
-                        }
-                    });
-            //     }
-            // );
-
+                    $infoContainer.addClass('d-none');
+                    $displayContainer.html('');
+                    $deleteControll.removeAttr('data-file-id');
+                    $nameContainer.html('');
+                    $sizeContainer.html('');
+                    $wrapper.find('input[type=\'hidden\']').val('');
+                }
+            });
         });
     }
 }

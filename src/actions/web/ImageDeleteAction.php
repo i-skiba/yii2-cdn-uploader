@@ -15,6 +15,8 @@ class ImageDeleteAction extends Action
     public function run($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        Yii::$app->filesService->deleteImage($id);
         return
             [
                 'success' => [
@@ -32,44 +34,5 @@ class ImageDeleteAction extends Action
                     ]
                 ]
             ];
-
-//        $service = $this->getService();
-//        $image = $service->findById($id);
-//        if (!$image){
-//            throw new NotFoundHttpException();
-//        }
-//        ImageUploadHelper::remove($image, 'path');
-//        $service->delete($image);
-//
-//        $request = Yii::$app->request;
-//        if (! $request->isAjax) {
-//            return $this->redirect([$this->redirect]);
-//        }
-////        $dirPath = $this->getFileFolder($path);
-////        $files = FileHelper::findFiles($dirPath);
-////        $getPath = $this->getFileFolder($image->path);
-//        $output = [];
-////        foreach ($files as $file) {
-////            $fileName = basename($file);
-////            $filePath = $getPath . DIRECTORY_SEPARATOR . $fileName;
-////            $output['files'][] = [
-////                'name' => $fileName,
-////                'size' => filesize($file),
-////                'url' => $filePath,
-////                'thumbnailUrl' => $filePath,
-////                'deleteUrl' => 'delete',
-////                'deleteType' => 'POST',
-////            ];
-////        }
-//
-//        return Json::encode($output);
-    }
-
-    public function getFileFolder($path)
-    {
-        $pathArray = explode("/",$path);
-        array_pop($pathArray);
-
-        return implode("/", $pathArray);
     }
 }

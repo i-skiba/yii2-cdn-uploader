@@ -75,4 +75,21 @@ class FilesService extends Service
             ]
         ];
     }
+
+    public function deleteImage($id)
+    {
+        $model = $this->findById($id);
+        if (file_exists($model->path)) {
+            FileHelper::unlink($model->path);
+        }
+        $this->delete($model);
+
+        return [
+            'success' => [
+                [
+
+                ]
+            ]
+        ];
+    }
 }
