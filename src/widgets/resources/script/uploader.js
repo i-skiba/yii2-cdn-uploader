@@ -270,6 +270,8 @@ var componentCdnUploader = {
             e.preventDefault();
             var file_id = $(this).attr('data-file-id');
             var delete_url = $(this).attr('data-delete-url');
+            var model_id = $(this).attr('data-model-id');
+            var model_attribute = $(this).attr('data-model-attribute');
             if(file_id === undefined) {
                 return false;
             }
@@ -280,7 +282,7 @@ var componentCdnUploader = {
 
             var formData = $.parseJSON($uploader.attr('data-options'));
             $.ajax({
-                url:  delete_url + "/?id=" + file_id,
+                url:  delete_url + "/?id=" + file_id+ "&model_id=" + model_id+ "&attribute=" + model_attribute,
                 success: function () {
                     var $infoContainer = $wrapper.find('.file-info');
                     var $displayContainer = $wrapper.find('.file-display');

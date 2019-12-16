@@ -50,7 +50,7 @@ use yii\helpers\Url;
                     </span>
                 </div>
                 <div class="list-icons list-icons-extended ml-auto">
-                    <a href="#" class="list-icons-item local-file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>  data-delete-url="image-delete">
+                    <a href="#" class="list-icons-item local-file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>  <?= $model ? "data-model-id='{$modelId}'" : null; ?> data-delete-url="image-delete" data-model-attribute="<?= $attribute?>">
                         <i class="icon-bin top-0"></i>
                     </a>
                 </div>

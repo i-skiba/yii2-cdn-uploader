@@ -24,6 +24,11 @@ class Uploader extends Widget
     public $url = '/cdn/default/upload';
 
     /**
+     * @var integer
+     */
+    public $modelId;
+
+    /**
      * @var string
      */
     public static $autoIdPrefix = 'uploader';
@@ -60,8 +65,9 @@ class Uploader extends Widget
             'buttonWrapClass' => $this->buttonWrapClass,
             'buttonIconClass' => $this->buttonIconClass,
             'model' => $this->model,
+            'modelId' => $this->modelId,
             'attribute' => $this->attribute,
-            'pojo' => $pojo,
+            'pojo' => $pojo
         ]);
 
         $this->registerBundle();
