@@ -269,6 +269,7 @@ var componentCdnUploader = {
         $('.cdn-upload-wrapper .local-file-delete').on('click', function(e) {
             e.preventDefault();
             var file_id = $(this).attr('data-file-id');
+            var delete_url = $(this).attr('data-delete-url');
             if(file_id === undefined) {
                 return false;
             }
@@ -279,7 +280,7 @@ var componentCdnUploader = {
 
             var formData = $.parseJSON($uploader.attr('data-options'));
             $.ajax({
-                url:  '/image-delete/'  + file_id,
+                url:  delete_url + "/?id=" + file_id,
                 success: function () {
                     var $infoContainer = $wrapper.find('.file-info');
                     var $displayContainer = $wrapper.find('.file-display');

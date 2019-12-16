@@ -16,21 +16,12 @@ class ImageDeleteAction extends Action
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        Yii::$app->filesService->deleteImage($id);
+        \Yii::$app->filesService->deleteImage($id);
         return
             [
                 'success' => [
                     [
-                        'id' => 1,
-                        'path' => 'dfsfds',
-                        'url' => '/assets/d0307205/placeholders/placeholder.jpg',
-                        'size' => 20,
-                        'height' => 20,
-                        'width' => 20,
-                        'ratio' => 20,
-                        'thumbs' => [
-                            'sdfasd'
-                        ]
+
                     ]
                 ]
             ];

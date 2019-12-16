@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <div class="cdn-upload-wrapper">
@@ -48,9 +49,8 @@ use yii\helpers\Html;
                         </span>
                     </span>
                 </div>
-
                 <div class="list-icons list-icons-extended ml-auto">
-                    <a href="#" class="list-icons-item local-file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
+                    <a href="#" class="list-icons-item local-file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>   data-delete-url="image-delete">
                         <i class="icon-bin top-0"></i>
                     </a>
                 </div>
