@@ -15,7 +15,7 @@ class ImageUploadAction extends Action
 {
     public function run()
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $form = $this->getForm();
         $name = ClassHelper::getShortClassName($form);
         if (! isset($_FILES[$name]['name'])){
