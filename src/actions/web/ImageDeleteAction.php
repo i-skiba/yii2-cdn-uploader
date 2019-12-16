@@ -13,8 +13,6 @@ use Exception;
  */
 class ImageDeleteAction extends Action
 {
-    public $redirect = 'index';
-
     public function run($id, $attribute, $model_id = null)
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

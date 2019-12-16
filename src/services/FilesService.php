@@ -80,7 +80,7 @@ class FilesService extends Service
     {
         $model = $this->findById($id);
         if (! $model){
-            
+
             return [
                 'success' => [
                 ]
