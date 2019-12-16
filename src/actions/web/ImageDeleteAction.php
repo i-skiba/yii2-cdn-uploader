@@ -15,15 +15,7 @@ class ImageDeleteAction extends Action
     public function run($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        Yii::$app->filesService->deleteImage($id);
-
-        return
-            [
-                'success' => [
-                    [
-
-                    ]
-                ]
-            ];
+        
+        return Yii::$app->filesService->deleteImage($id);
     }
 }
