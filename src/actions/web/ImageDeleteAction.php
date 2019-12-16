@@ -1,6 +1,8 @@
 <?php
 namespace kamaelkz\yii2cdnuploader\actions\web;
 
+use Yii;
+use yii\web\Response;
 use concepture\yii2logic\actions\Action;
 
 /**
@@ -10,13 +12,11 @@ use concepture\yii2logic\actions\Action;
  */
 class ImageDeleteAction extends Action
 {
-    public $redirect = 'index';
-
     public function run($id)
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->filesService->deleteImage($id);
 
-        \Yii::$app->filesService->deleteImage($id);
         return
             [
                 'success' => [
