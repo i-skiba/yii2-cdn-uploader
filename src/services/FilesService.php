@@ -79,6 +79,14 @@ class FilesService extends Service
     public function deleteImage($id)
     {
         $model = $this->findById($id);
+        if (! $model){
+            
+            return [
+                'success' => [
+                ]
+            ];
+        }
+
         if (file_exists($model->path)) {
             FileHelper::unlink($model->path);
         }
@@ -86,9 +94,6 @@ class FilesService extends Service
 
         return [
             'success' => [
-                [
-
-                ]
             ]
         ];
     }
