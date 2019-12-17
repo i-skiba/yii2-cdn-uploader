@@ -62,8 +62,8 @@ class FilesService extends Service
             'success' => [
                 [
                     'id' => $fileModel->id,
-                    'path' => "/uploads/{$name}/{$fileName}",
-                    'url' => "/uploads/{$name}/{$fileName}",
+                    'path' => "/public/uploads/{$name}/{$fileName}",
+                    'url' => "/public/uploads/{$name}/{$fileName}",
                     'size' => $imageFile->size,
                     'height' => $sizeInfo[1],
                     'width' => $sizeInfo[0],
