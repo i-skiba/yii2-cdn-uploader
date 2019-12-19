@@ -28,11 +28,15 @@ class ResourceValidator extends ModelValidator
     public function init()
     {
         parent::init();
-        $this->modelClass = $this->getModelClass();
+        if(! $this->type) {
+            $this->type = self::TYPE_IMAGE;
+        }
+
         if(! $this->message) {
             $this->message = Yii::t('uploader', 'Некорректный формат данных.');
         }
 
+        $this->modelClass = $this->getModelClass();
         $this->modifySource = false;
     }
 
