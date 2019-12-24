@@ -1,16 +1,19 @@
 <?php
+
 namespace kamaelkz\yii2cdnuploader\models;
 
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
-
+/**
+ * Локальные файлы
+ *
+ * @author kamaelkz <kamaelkz@yandex.kz>
+ */
 class Files extends ActiveRecord
 {
     /**
-     * @see \concepture\yii2logic\models\ActiveRecord:label()
-     *
-     * @return string
+     * @inheritDoc
      */
     public static function label()
     {
@@ -18,17 +21,15 @@ class Files extends ActiveRecord
     }
 
     /**
-     * @see \concepture\yii2logic\models\ActiveRecord:toString()
-     * @return string
+     * @inheritDoc
      */
     public function toString()
     {
         return $this->path;
     }
 
-
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public static function tableName()
     {
@@ -36,7 +37,7 @@ class Files extends ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function rules()
     {

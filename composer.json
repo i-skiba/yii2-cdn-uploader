@@ -17,7 +17,6 @@
         }
     ],
     "require": {
-        "concepture/yii2-logic-core" : "dev-master"
     },
     "autoload": {
         "psr-4": {
