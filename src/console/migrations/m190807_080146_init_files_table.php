@@ -19,7 +19,7 @@ class m190807_080146_init_files_table extends Migration
             'path' => $this->string(512)->notNull(),
             'type' => $this->smallInteger()->notNull(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()")),
-            'updated_at' => $this->dateTime()->append('ON UPDATE NOW()'),
+            'updated_at' => $this->dateTime(),
         ]);
         $this->addIndex(['type']);
     }
