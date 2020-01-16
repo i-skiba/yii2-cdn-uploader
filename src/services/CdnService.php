@@ -107,7 +107,11 @@ class CdnService extends Service
     public function path(string $path, $thumb = null)
     {
         if($thumb) {
-            $path = "{$thumb}{$path}";
+            $parts = explode('/', $path);
+            $name = array_pop($parts);
+            $name = "{$thumb}_$name";
+            $parts[] = $name;
+            $path = implode('/', $parts);
         }
 
         if(strpos($path, '/static/') !== false) {
