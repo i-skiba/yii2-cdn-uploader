@@ -18,4 +18,5 @@ class StrategiesEnum extends Enum
     const BLOG = 'blog';
     const COMMENT = 'comment';
     const CAROUSEL = 'carousel';
+    const RETINA = 'retina';
 }
