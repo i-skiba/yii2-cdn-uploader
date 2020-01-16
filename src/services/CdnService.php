@@ -104,8 +104,12 @@ class CdnService extends Service
      *
      * @return string|null
      */
-    public function path(string $path)
+    public function path(string $path, $thumb = null)
     {
+        if($thumb) {
+            $path = "{$thumb}{$path}";
+        }
+
         if(strpos($path, '/static/') !== false) {
             return $this->getConfigItem('proxy.static') . str_replace('/static', null, $path);
         }
