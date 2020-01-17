@@ -56,16 +56,18 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-        <div class="card-img-actions mx-1 mb-1 file-display">
-            <?php if($pojo->path):?>
-                <?php
-                    $options = ['class' => 'card-img img-fluid' , 'style' => 'width:auto; max-width:100%'];
-//                    if($pojo->width && $pojo->height) {
-//                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
-//                    }
-                ?>
-                <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
-            <?php endif;?>
+        <div class="card-body">
+            <div class="card-img-actions mx-1 mb-1 file-display text-center">
+                <?php if($pojo->path):?>
+                    <?php
+                        $options = ['class' => 'card-img img-fluid' , 'style' => 'width:auto; max-width:100%;'];
+    //                    if($pojo->width && $pojo->height) {
+    //                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
+    //                    }
+                    ?>
+                    <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
+                <?php endif;?>
+            </div>
         </div>
     </div>
 </div>
