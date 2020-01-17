@@ -34,19 +34,19 @@ use yii\helpers\Html;
         <div class="card-body">
             <div class="d-flex align-items-start flex-nowrap">
                 <div>
-                    <div class="font-weight-semibold mr-2 file-name">
-                        <?php if($pojo->path):?>
-                            <?= $pojo->path;?>
-                        <?php endif;?>
-                    </div>
-                    <span class="font-size-sm text-muted">
-                        <?= Yii::t('yii2admin', 'Размер');?>:
-                        <span class="file-size">
-                            <?php if($pojo->size):?>
-                                <?= $pojo->size;?>
-                            <?php endif;?>
-                        </span>
-                    </span>
+<!--                    <div class="font-weight-semibold mr-2 file-name">-->
+<!--                        --><?php //if($pojo->path):?>
+<!--                            --><?//= $pojo->path;?>
+<!--                        --><?php //endif;?>
+<!--                    </div>-->
+<!--                    <span class="font-size-sm text-muted">-->
+<!--                        --><?//= Yii::t('yii2admin', 'Размер');?><!--:-->
+<!--                        <span class="file-size">-->
+<!--                            --><?php //if($pojo->size):?>
+<!--                                --><?//= $pojo->size;?>
+<!--                            --><?php //endif;?>
+<!--                        </span>-->
+<!--                    </span>-->
                 </div>
 
                 <div class="list-icons list-icons-extended ml-auto">
@@ -59,7 +59,7 @@ use yii\helpers\Html;
         <div class="card-img-actions mx-1 mb-1 file-display">
             <?php if($pojo->path):?>
                 <?php
-                    $options = ['class' => 'card-img img-fluid'];
+                    $options = ['class' => 'card-img img-fluid' , 'style' => 'width:auto; max-width:100%'];
 //                    if($pojo->width && $pojo->height) {
 //                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
 //                    }
