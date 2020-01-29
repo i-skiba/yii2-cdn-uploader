@@ -27,9 +27,13 @@ use yii\helpers\Html;
            </span>
         </div>
     <?php else: ?>
-        <?= Html::activeHint($model, $attribute, ['class' => 'text-muted mt-1']);?>
+        <?php if($model && $attribute) :?>
+            <?= Html::activeHint($model, $attribute, ['class' => 'text-muted mt-1']);?>
+        <?php endif;?>
     <?php endif; ?>
-    <?= Html::error($model, $attribute, ['class' => 'text-danger form-text']);?>
+    <?php if($model && $attribute) :?>
+        <?= Html::error($model, $attribute, ['class' => 'text-danger form-text']);?>
+    <?php endif;?>
     <div class="">
         <div class="progress mt-2 d-none">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" style="width: 0%;">

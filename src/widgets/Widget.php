@@ -55,10 +55,6 @@ abstract class Widget extends InputWidget
     public function init()
     {
         parent::init();
-        if(! $this->hasModel()) {
-            throw new InvalidConfigException("'model' and 'attribute' properties must be specified.");
-        }
-
         $this->options['plugin-options']['url'] = Url::to([$this->url]);
     }
 
