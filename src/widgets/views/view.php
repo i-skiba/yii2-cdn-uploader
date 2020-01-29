@@ -5,13 +5,20 @@ use yii\helpers\Html;
 ?>
 <div class="cdn-upload-wrapper">
     <div>
-        <div class="btn <?= $buttonWrapClass;?> btn-labeled btn-labeled-left btn-file">
-            <b>
+        <?php if($small) :?>
+            <div  class="btn <?= $buttonWrapClass;?> btn-labeled btn-file btn-icon">
                 <i class="<?= $buttonIconClass;?>"></i>
-            </b>
-            <?= Yii::t('yii2admin', 'Выберите файл');?>
-            <?= $input ?>
-        </div>
+                <?= $input ?>
+            </div>
+        <?php else :?>
+            <div class="btn <?= $buttonWrapClass;?> btn-labeled btn-labeled-left btn-file">
+                <b>
+                    <i class="<?= $buttonIconClass;?>"></i>
+                </b>
+                <?= Yii::t('yii2admin', 'Выберите файл');?>
+                    <?= $input ?>
+            </div>
+        <?php endif;?>
     </div>
     <?php if(! empty($hint)) :?>
         <div class="mt-1">

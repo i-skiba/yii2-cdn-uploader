@@ -42,6 +42,11 @@ class CdnUploader extends Widget
     public $resizeBigger = true;
 
     /**
+     * @var
+     */
+    public $small = false;
+
+    /**
      * @var string
      */
     public static $autoIdPrefix = 'cdnUploader';
@@ -75,6 +80,7 @@ class CdnUploader extends Widget
             'model' => $this->model,
             'attribute' => $this->attribute,
             'pojo' => $pojo,
+            'small' => $this->small,
         ]);
 
         $this->registerBundle();
