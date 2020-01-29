@@ -3,9 +3,10 @@
 namespace kamaelkz\yii2cdnuploader\widgets;
 
 use Yii;
-use yii\base\InvalidConfigException;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\base\InvalidConfigException;
 use concepture\yii2logic\widgets\WidgetTrait;
 use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
 
@@ -68,8 +69,18 @@ class CdnUploader extends Widget
         $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
 
         # todo: адаптировать под файл, пока изображения хватит
-        $pojo = new CdnImagePojo();
-        $pojo->load($this->model->{$this->attribute}, '');
+        if (isset($this->options['multiple']) && $this->options['multiple'] === true) {
+            $pojo = [];
+            $images = Json::decode($this->model->{$this->attribute}) ?? [];
+            foreach ($images as $image) {
+                $model = new CdnImagePojo();
+                $model->load($image, '');
+                $pojo[] = $model;
+            }
+        } else {
+            $pojo = new CdnImagePojo();
+            $pojo->load($this->model->{$this->attribute}, '');
+        }
 
         echo  $this->render($this->template, [
             'input' => $input,
