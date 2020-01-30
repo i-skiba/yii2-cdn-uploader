@@ -60,13 +60,17 @@ class CdnUploader extends Widget
         $this->setOptions();
         $this->options['id'] = $this->getId();
         $this->options['class'] = 'cdnuploader';
-        if($this->model->{$this->attribute}) {
-            $this->options['hiddenOptions'] = [
-                'value' => $this->model->{$this->attribute}
-            ];
-        }
+        if(! empty($this->model) && ! empty($this->attribute)) {
+            if($this->model->{$this->attribute}) {
+                $this->options['hiddenOptions'] = [
+                    'value' => $this->model->{$this->attribute}
+                ];
+            }
 
-        $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
+            $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
+        } else {
+            $input = Html::fileInput($this->name, $this->value, $this->options);
+        }
 
         # todo: адаптировать под файл, пока изображения хватит
         if (isset($this->options['multiple']) && $this->options['multiple'] === true) {
@@ -79,7 +83,7 @@ class CdnUploader extends Widget
             }
         } else {
             $pojo = new CdnImagePojo();
-            $pojo->load($this->model->{$this->attribute}, '');
+            $pojo->load($this->model->{$this->attribute} ?? $this->value, '');
         }
 
         echo  $this->render($this->template, [
