@@ -41,36 +41,45 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
-    <div class="card file-info <?= (! $pojo->path) ? 'd-none' : null;?> mt-2">
-        <div class="card-body">
-            <div class="d-flex align-items-start flex-nowrap">
-                <div>
-<!--                    <div class="font-weight-semibold mr-2 file-name">-->
-<!--                        --><?php //if($pojo->path):?>
-<!--                            --><?//= $pojo->path;?>
-<!--                        --><?php //endif;?>
-<!--                    </div>-->
-<!--                    <span class="font-size-sm text-muted">-->
-<!--                        --><?//= Yii::t('yii2admin', 'Размер');?><!--:-->
-<!--                        <span class="file-size">-->
-<!--                            --><?php //if($pojo->size):?>
-<!--                                --><?//= $pojo->size;?>
-<!--                            --><?php //endif;?>
-<!--                        </span>-->
-<!--                    </span>-->
-                </div>
+    <?php if (isset($this->context->options['multiple']) && $this->context->options['multiple'] === true): ?>
+        <div class="card-img-actions mx-1 mb-1 files-display text-center">
+            <?php if (is_array($pojo)): ?>
+                <?php foreach ($pojo as $pj): ?>
+                    <?php // TODO - здесь нужна реализация отображения загруженных файлов ?>
+                <?php endforeach ?>
+            <?php endif;?>
+        </div>
+    <?php else: ?>
+        <div class="card file-info <?= (! $pojo->path) ? 'd-none' : null;?> mt-2">
+            <div class="card-body">
+                <div class="d-flex align-items-start flex-nowrap">
+                    <div>
+                        <!--                    <div class="font-weight-semibold mr-2 file-name">-->
+                        <!--                        --><?php //if($pojo->path):?>
+                        <!--                            --><?//= $pojo->path;?>
+                        <!--                        --><?php //endif;?>
+                        <!--                    </div>-->
+                        <!--                    <span class="font-size-sm text-muted">-->
+                        <!--                        --><?//= Yii::t('yii2admin', 'Размер');?><!--:-->
+                        <!--                        <span class="file-size">-->
+                        <!--                            --><?php //if($pojo->size):?>
+                        <!--                                --><?//= $pojo->size;?>
+                        <!--                            --><?php //endif;?>
+                        <!--                        </span>-->
+                        <!--                    </span>-->
+                    </div>
 
-                <div class="list-icons list-icons-extended ml-auto">
-                    <a href="#" class="list-icons-item file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
-                        <i class="icon-bin top-0"></i>
-                    </a>
+                    <div class="list-icons list-icons-extended ml-auto">
+                        <a href="#" class="list-icons-item file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
+                            <i class="icon-bin top-0"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-            <div class="card-img-actions mx-1 mb-1 file-display text-center">
-                <?php if($pojo->path):?>
-                    <?php
+            <div class="card-body">
+                <div class="card-img-actions mx-1 mb-1 file-display text-center">
+                    <?php if($pojo->path):?>
+                        <?php
                         $options = [
                             'class' => 'card-img img-fluid'
                         ];
@@ -78,10 +87,11 @@ use yii\helpers\Html;
                             $options['data-width'] = $pojo->width;
                             $options['data-height'] = $pojo->height;
                         }
-                    ?>
-                    <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
-                <?php endif;?>
+                        ?>
+                        <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
+                    <?php endif;?>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif;?>
 </div>

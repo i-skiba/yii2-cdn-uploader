@@ -92,8 +92,19 @@ var componentCdnUploader = {
                     $sizeContainer.html(info.size);
                     $infoContainer.removeClass('d-none');
 
+                    // TODO мультизагрузка
                     var result = JSON.stringify(info);
-                    $wrapper.find('input[type=\'hidden\']').val(result);
+                    if ($(this)[0].multiple) {
+                        var res = [];
+                        var hiddenInput = $wrapper.find('input[type=\'hidden\']');
+                        if (hiddenInput.val()) {
+                            res = $.parseJSON(hiddenInput.val());
+                        }
+                        res.push($.parseJSON(result ? result : '{}'));
+                        hiddenInput.val(JSON.stringify(_.compact(res)));
+                    } else {
+                        $wrapper.find('input[type=\'hidden\']').val(result);
+                    }
                 }
             },
             fail : function(e, data) {
@@ -232,7 +243,19 @@ var componentCdnUploader = {
                     $infoContainer.removeClass('d-none');
 
                     var result = JSON.stringify(info);
-                    $wrapper.find('input[type=\'hidden\']').val(result);
+
+                    // TODO мультизагрузка
+                    if ($(this)[0].multiple) {
+                        var res = [];
+                        var hiddenInput = $wrapper.find('input[type=\'hidden\']');
+                        if (hiddenInput.val()) {
+                            res = $.parseJSON(hiddenInput.val());
+                        }
+                        res.push($.parseJSON(result ? result : '{}'));
+                        hiddenInput.val(JSON.stringify(_.compact(res)));
+                    } else {
+                        $wrapper.find('input[type=\'hidden\']').val(result);
+                    }
                 }
             },
             fail : function(e, data) {
