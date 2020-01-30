@@ -68,7 +68,8 @@ class CdnUploader extends Widget
 
             $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
         } else {
-            $input = Html::fileInput($this->name, $this->value, $this->options);
+            $input = Html::hiddenInput($this->name, $this->value, $this->options)
+                . Html::fileInput($this->name, $this->value, $this->options);
         }
 
         # todo: адаптировать под файл, пока изображения хватит
