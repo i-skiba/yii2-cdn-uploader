@@ -18,8 +18,7 @@ var componentCdnUploader = {
         return JSON.parse(pluginOptions);
     },
     initialization : function () {
-        $('.cdnuploader').off();
-        $('.cdnuploader').fileupload({
+        $('.cdnuploader').not('.initialization').fileupload({
             add : function (e, data) {
                 var authUrl;
                 var $self = $(this);
@@ -124,6 +123,8 @@ var componentCdnUploader = {
                 $self.removeAttr('disabled');
             }
         });
+
+        $('.cdnuploader').addClass('initialization');
 
         // удаление изображения
         $('.cdn-upload-wrapper .file-delete').off('click');

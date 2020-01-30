@@ -68,7 +68,10 @@ class CdnUploader extends Widget
 
             $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
         } else {
-            $input = Html::hiddenInput($this->name, $this->value, $this->options)
+            $this->options['hiddenOptions'] = [
+                'value' => $this->value
+            ];
+            $input = Html::hiddenInput($this->name, $this->value, $this->options['hiddenOptions'])
                 . Html::fileInput($this->name, $this->value, $this->options);
         }
 
