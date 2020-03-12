@@ -1,4 +1,5 @@
 <?php
+
 namespace kamaelkz\yii2cdnuploader\actions\web;
 
 use concepture\yii2logic\actions\Action;
