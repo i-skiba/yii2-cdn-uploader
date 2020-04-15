@@ -92,8 +92,9 @@ var componentCdnUploader = {
                     $infoContainer.removeClass('d-none');
 
                     var result = JSON.stringify(info);
-                    $wrapper.find('input[type=\'hidden\']').val(result);
-                    $(window).trigger('cdnuploader:change', {file:result});
+                    let input = $wrapper.find('input[type=\'hidden\']');
+                    input.val(result);
+                    input.trigger('change');
                 }
             },
             fail : function(e, data) {
@@ -169,8 +170,9 @@ var componentCdnUploader = {
                             $deleteControll.removeAttr('data-file-id');
                             $nameContainer.html('');
                             $sizeContainer.html('');
-                            $wrapper.find('input[type=\'hidden\']').val('');
-                            $(window).trigger('cdnuploader:change', {file:''});
+                            let input = $wrapper.find('input[type=\'hidden\']');
+                            input.val('');
+                            input.trigger('change');
                         }
                     });
                 }
@@ -235,8 +237,9 @@ var componentCdnUploader = {
                     $infoContainer.removeClass('d-none');
 
                     var result = JSON.stringify(info);
-                    $wrapper.find('input[type=\'hidden\']').val(result);
-                    $(window).trigger('cdnuploader:change', {file:result});
+                    let input = $wrapper.find('input[type=\'hidden\']');
+                    input.val(result);
+                    input.trigger('change');
                 }
             },
             fail : function(e, data) {
@@ -299,8 +302,9 @@ var componentCdnUploader = {
                     $deleteControll.removeAttr('data-file-id');
                     $nameContainer.html('');
                     $sizeContainer.html('');
-                    $wrapper.find('input[type=\'hidden\']').val('');
-                    $(window).trigger('cdnuploader:change', {file:''});
+                    let input = $wrapper.find('input[type=\'hidden\']');
+                    input.val('');
+                    input.trigger('change');
                 }
             });
         });
