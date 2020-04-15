@@ -93,6 +93,7 @@ var componentCdnUploader = {
 
                     var result = JSON.stringify(info);
                     $wrapper.find('input[type=\'hidden\']').val(result);
+                    $(window).trigger('cdnuploader:change', {file:result});
                 }
             },
             fail : function(e, data) {
@@ -169,6 +170,7 @@ var componentCdnUploader = {
                             $nameContainer.html('');
                             $sizeContainer.html('');
                             $wrapper.find('input[type=\'hidden\']').val('');
+                            $(window).trigger('cdnuploader:change', {file:''});
                         }
                     });
                 }
@@ -234,6 +236,7 @@ var componentCdnUploader = {
 
                     var result = JSON.stringify(info);
                     $wrapper.find('input[type=\'hidden\']').val(result);
+                    $(window).trigger('cdnuploader:change', {file:result});
                 }
             },
             fail : function(e, data) {
@@ -297,6 +300,7 @@ var componentCdnUploader = {
                     $nameContainer.html('');
                     $sizeContainer.html('');
                     $wrapper.find('input[type=\'hidden\']').val('');
+                    $(window).trigger('cdnuploader:change', {file:''});
                 }
             });
         });
