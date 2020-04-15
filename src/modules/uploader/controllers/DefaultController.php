@@ -33,7 +33,7 @@ class DefaultController extends Controller
                 ],
                 'allow' => true,
                 'roles' => [
-                    UserRoleEnum::ADMIN
+                    '@'
                 ],
             ]
         ];
