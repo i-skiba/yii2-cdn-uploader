@@ -53,7 +53,7 @@ class DefaultController extends Controller
         $behaviors['verbs'] = [
             'class' => VerbFilter::class,
             'actions' => [
-                'token' => ['GET'],
+                'token' => ['POST'],
             ],
         ];
 
