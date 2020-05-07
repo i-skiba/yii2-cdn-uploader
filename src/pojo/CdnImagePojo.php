@@ -36,9 +36,9 @@ class CdnImagePojo extends Pojo
                     'id',
                     'path',
                     'size',
-                    'height',
-                    'width',
-                    'ratio',
+//                    'height',
+//                    'width',
+//                    'ratio',
                 ],
                 'required'
             ],
@@ -62,7 +62,7 @@ class CdnImagePojo extends Pojo
                     'ratio'
                 ],
                 'double'
-            ]
+            ],
         ];
     }
 }
