@@ -37,6 +37,11 @@ var componentCdnUploader = {
                 var infoContainer = wrapper.find('.file-info');
                 infoContainer.addClass('d-none');
                 var formData = $.parseJSON($(this).attr('data-options'));
+                var strategy = formData.source || null;
+                if(strategy !== null && strategy === CdnHelper.strategies.trusted) {
+                    formData.name = data.files[0].name;
+                }
+
                 CdnHelper.auth(
                     authUrl,
                     formData,

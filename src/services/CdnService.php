@@ -7,6 +7,7 @@ use concepture\yii2logic\exceptions\Exception;
 use concepture\yii2logic\traits\ConfigAwareTrait;
 use concepture\yii2logic\services\Service;
 use concepture\yii2logic\components\jwt\services\JWTService;
+use concepture\yii2logic\helpers\Transliterator;
 
 /**
  * Сервис для работы с CDN
@@ -92,6 +93,14 @@ class CdnService extends Service
             $source = $payload['source'];
             unset($payload['source']);
             $payload['strategy'] = $source;
+        }
+
+        if(isset($payload['name'])) {
+            $filename = $payload['name'];
+            $parts = explode('.', $filename);
+            $extension = end($parts);
+            $name = str_replace(".{$extension}", '', $filename);
+            $payload['name'] = Transliterator::translit($name) . ".{$extension}";
         }
 
         return $this->getJwtService()->encode($payload);
