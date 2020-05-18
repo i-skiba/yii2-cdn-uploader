@@ -57,6 +57,10 @@ var componentCdnUploader = {
                             'Authorization': 'Bearer ' + response.token
                         };
                         data.formData = formData;
+                        if(formData.name !== undefined) {
+                            delete formData['name'];
+                        }
+
                         data.submit();
                     }
                 );
