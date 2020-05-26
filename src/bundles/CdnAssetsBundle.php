@@ -20,6 +20,11 @@ abstract class CdnAssetsBundle extends CoreBundle
     private $assetHash;
 
     /**
+     * @var string
+     */
+    private $originSourcePath;
+
+    /**
      * Адрес цдн
      *
      * @return string
@@ -47,9 +52,55 @@ abstract class CdnAssetsBundle extends CoreBundle
     {
         parent::init();
         if($this->enableCriteria()) {
+            $this->originSourcePath = $this->sourcePath;
+            $this->setAssetHash();
             $this->modifyResourcesPath();
             $this->baseUrl = "{$this->getRemoteHost()}/assets/{$this->getRemoteFolder()}";
         }
+    }
+
+    /**
+     * Изменение путя к js ресурсу
+     *
+     * @param string $path
+     * @param int $index
+     *
+     * @return boolean
+     *
+     * @throws \Exception
+     */
+    protected function modifyJsPath($path, $index = null)
+    {
+        $cdnPath = $this->getBuildPath($path);
+        if($cdnPath === false) {
+            return false;
+        }
+
+        $this->js[$index] = $cdnPath;
+
+        return true;
+    }
+
+    /**
+     * Изменение путя к css ресурсу
+     *
+     * @param string $path
+     * @param int $index
+     *
+     * @return boolean
+     *
+     * @throws \Exception
+     */
+    protected function modifyCssPath($path, $index = null)
+    {
+        $cdnPath = $this->getBuildPath($path);
+        if($cdnPath === false) {
+            return false;
+        }
+
+        $this->css[$index] = $cdnPath;
+
+        return true;
     }
 
     /**
@@ -59,13 +110,17 @@ abstract class CdnAssetsBundle extends CoreBundle
      */
     private function setAssetHash()
     {
+        if($this->assetHash) {
+            return;
+        }
+
         $dir = Yii::getAlias('@frontend');
         $content = file_get_contents("{$dir}/config/assets_hash.json");
         if($content === false) {
             throw new \Exception('`assets_hash.json` is not found');
         }
 
-        $this->assetHash =  Json::decode($content);
+        $this->assetHash = Json::decode($content);
     }
 
     /**
@@ -75,24 +130,16 @@ abstract class CdnAssetsBundle extends CoreBundle
      */
     private function modifyResourcesPath()
     {
-        $this->setAssetHash();
-        $suffix = str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $this->sourcePath);
         foreach ($this->js as $index => $path) {
-            $cdnPath = $this->getBuildPath($suffix, $path);
-            if($cdnPath === false) {
+            if (!$this->modifyJsPath($path, $index)) {
                 continue;
             }
-
-            $this->js[$index] = $cdnPath;
         }
 
         foreach ($this->css as $index => $path) {
-            $cdnPath = $this->getBuildPath($suffix, $path);
-            if($cdnPath === false) {
+            if (!$this->modifyCssPath($path, $index)) {
                 continue;
             }
-
-            $this->css[$index] = $cdnPath;
         }
 
         $this->sourcePath = null;
@@ -101,17 +148,18 @@ abstract class CdnAssetsBundle extends CoreBundle
     /**
      * Получение пути к билду
      *
-     * @param string $suffix
      * @param string $path
-     * @return bool|string
+     *
+     * @return boolean|string
      */
-    private function getBuildPath($suffix, $path)
+    private function getBuildPath($path)
     {
+        $resourcePath  = str_replace($_SERVER['DOCUMENT_ROOT'] . '/', '', $this->originSourcePath);
         if(is_array($path) && isset($path[0])) {
             $path = $path[0];
         }
 
-        $fullPath = ( $suffix . '/' . $path);
+        $fullPath = ( $resourcePath . '/' . $path);
         if(! isset($this->assetHash[$fullPath])) {
             return false;
         }
