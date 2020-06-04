@@ -24,6 +24,7 @@ class CdnImagePojo extends Pojo
     public $height;
     public $width;
     public $ratio;
+    public $thumbs;
 
     /**
      * @inheritDoc
@@ -63,6 +64,12 @@ class CdnImagePojo extends Pojo
                 ],
                 'double'
             ],
+            [
+                [
+                    'thumbs'
+                ],
+                'safe'
+            ]
         ];
     }
 }
