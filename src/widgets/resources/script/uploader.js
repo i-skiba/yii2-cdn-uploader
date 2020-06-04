@@ -75,11 +75,7 @@ var componentCdnUploader = {
                 var $self = $(this);
                 if(data.result.success && data.result.success.length > 0) {
                     var files = CdnHelper.parseResponse(data.result.success);
-                    var file = files[0];
-                    var info = file;
-                    if(file.thumbs !== undefined && file.thumbs.thumb !== undefined) {
-                        info = file.thumbs.thumb;
-                    }
+                    var info = files[0];
 
                     var $wrapper = $self.closest('.cdn-upload-wrapper');
                     var $infoContainer = $wrapper.find('.file-info');

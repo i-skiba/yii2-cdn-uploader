@@ -66,25 +66,15 @@ var CdnHelper = {
         var self = this;
         //оригинальные изображения
         $.each(response, function(originIndex, originInfo) {
-            // var item = originInfo;
             self.fillResponse(result, originIndex, originInfo);
-            if(originInfo.thumbs.length > 0) {
-                $.each(originInfo.thumbs, function (thumbsIndex, thumbsInfo){
-                    if(thumbsInfo.thumbAlias !== undefined) {
-                        result[originIndex]['thumbs'] = {};
+            if(originInfo.thumbs && originInfo.thumbs.length > 0) {
+                result[originIndex]['thumbs'] = {};
+                $.each(originInfo.thumbs, function (thumbsIndex, thumbsInfo) {
+                    if(typeof thumbsInfo.thumbAlias !== 'undefined') {
                         self.fillResponse(result[originIndex]['thumbs'], thumbsInfo.thumbAlias, thumbsInfo);
-                        // item = thumbsInfo;
                     }
                 });
             }
-
-            // TODO не уверен что нужно, пусть пока полежит
-            // if(
-            //     processItemCallback !== undefined
-            //     && typeof processItemCallback === 'function'
-            // ) {
-            //     processItemCallback(item);
-            // }
         });
 
         return result;
