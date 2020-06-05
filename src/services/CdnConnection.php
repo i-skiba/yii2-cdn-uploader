@@ -60,11 +60,12 @@ class CdnConnection
      * @param string $authToken
      * @param string $destinationFilename
      * @param string $departureFilename
+     * @param bool $httpClient - бывают редкие случаи когда нужно отрубить http client
      * @return array|bool
      * @throws CdnConnectionException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function upload($authToken, $destinationFilename, $departureFilename)
+    public function upload($authToken, $destinationFilename, $departureFilename, $viaHttpClient = true)
     {
         if (null == self::$instance->getConfigItem('upload')) {
             throw new CdnConnectionException('Upload url must be set.');
@@ -76,35 +77,11 @@ class CdnConnection
             'path' => implode('/', $pathParts),
             'name' => $filename
         ];
-        $regexParser = new RegexParser();
-        $absoluteUrl = $regexParser->parse($departureFilename, RegexPatternEnum::ABSOLUTE_URL);
-        #идентификация абсолютного адреса
-        if($absoluteUrl == false) {
-            $fileContent = file_get_contents($departureFilename);
-        } else {
-            @list(, $schema, $host, $url) = $absoluteUrl;
-            if(! empty($url)) {
-                $url = urlencode(trim($url, '/'));
-            }
+        $fileContent = $this->getUploadContent($departureFilename, $viaHttpClient);
+        if(! $fileContent) {
+            $this->addError('Failed to get resource content');
 
-            $departureFilename = "{$schema}://{$host}/{$url}";
-            dump($departureFilename);
-            $client = new Client(['timeout' => 0]);
-            $res = null;
-            try {
-                $res = $client->request(
-                    'GET',
-                    $departureFilename
-                );
-
-                if($res->getStatusCode() == 200) {
-                    $fileContent = $res->getBody()->getContents();
-                }
-            } catch (\Exception $e) {
-                $this->addError($e->getMessage());
-
-                return false;
-            }
+            return false;
         }
         #файл
         $multipartParams = [
@@ -123,6 +100,7 @@ class CdnConnection
         }
 
         try {
+            $client = new Client(['timeout' => 0]);
             $res = $client->request(
                 'POST',
                 $this->getUploadUrl(),
@@ -174,6 +152,48 @@ class CdnConnection
         }
 
         return (array) $responseContent;
+    }
+
+    /**
+     * Получение содержимого загружаемого файла
+     *
+     * @param string $departureFilename
+     * @param bool $viaHttpClient
+     * @return false|string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function getUploadContent($departureFilename, $viaHttpClient = true)
+    {
+        $result = null;
+        $regexParser = new RegexParser();
+        $absoluteUrl = $regexParser->parse($departureFilename, RegexPatternEnum::ABSOLUTE_URL);
+        #идентификация абсолютного адреса
+        if($viaHttpClient === false || $absoluteUrl == false) {
+            $result = file_get_contents($departureFilename);
+        } else {
+            @list(, $schema, $host, $url) = $absoluteUrl;
+            if(! empty($url)) {
+                $url = rawurlencode(trim($url, '/'));
+            }
+
+            $departureFilename = "{$schema}://{$host}/{$url}";
+            $client = new Client(['timeout' => 0]);
+            $res = null;
+            try {
+                $res = $client->request(
+                    'GET',
+                    $departureFilename
+                );
+
+                if($res->getStatusCode() == 200) {
+                    $result = $res->getBody()->getContents();
+                }
+            } catch (\Exception $e) {
+                $this->addError($e->getMessage());
+            }
+        }
+
+        return $result;
     }
 
     /**
