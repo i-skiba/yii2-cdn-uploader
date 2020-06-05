@@ -89,7 +89,7 @@ class CdnConnection
             }
 
             $departureFilename = "{$schema}://{$host}/{$url}";
-            d($departureFilename);
+            d($departureFilename); 
             $client = new Client(['timeout' => 0]);
             $res = null;
             try {
