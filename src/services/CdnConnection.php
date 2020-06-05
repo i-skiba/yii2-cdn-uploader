@@ -87,7 +87,7 @@ class CdnConnection
             try {
                 $res = $client->request(
                     'GET',
-                    rawurlencode($departureFilename)
+                    $departureFilename
                 );
 
                 if($res->getStatusCode() == 200) {
