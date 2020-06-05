@@ -77,7 +77,7 @@ class CdnConnection
             'path' => implode('/', $pathParts),
             'name' => $filename
         ];
-        $fileContent = $this->getUploadContent($departureFilename, $viaHttpClient);
+        $fileContent = $this->getUploadContent($departureFilename);
         if(! $fileContent) {
             $this->addError('Failed to get resource content');
 
