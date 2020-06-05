@@ -189,7 +189,14 @@ class CdnConnection
                 if($res->getStatusCode() == 200) {
                     $result = $res->getBody()->getContents();
                 }
-                d($res->getHeaders());
+
+                $headers = $res->getHeaders();
+                if(isset($headers['Content-Type'])) {
+                    if($headers['Content-Type'] === 'application/octet-stream') {
+                        $result = stream_get_contents($departureFilename);
+                        d($result);
+                    }
+                }
             } catch (\Exception $e) {
                 $this->addError($e->getMessage());
             }
