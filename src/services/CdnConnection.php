@@ -78,6 +78,7 @@ class CdnConnection
             'name' => $filename
         ];
         $fileContent = $this->getUploadContent($departureFilename);
+        d($fileContent);
         if(! $fileContent) {
             $this->addError('Failed to get resource content');
 
