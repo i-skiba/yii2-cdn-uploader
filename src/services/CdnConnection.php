@@ -84,10 +84,11 @@ class CdnConnection
         } else {
             @list(, $schema, $host, $url) = $absoluteUrl;
             if(! empty($url)) {
-                $url = rawurlencode(trim($url, '/'));
+                $url = urlencode(trim($url, '/'));
             }
 
             $departureFilename = "{$schema}://{$host}/{$url}";
+            dump($departureFilename);
             $client = new Client(['timeout' => 0]);
             $res = null;
             try {
