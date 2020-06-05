@@ -78,12 +78,11 @@ class CdnConnection
         ];
         $regexParser = new RegexParser();
         $absoluteUrl = $regexParser->parse($departureFilename, RegexPatternEnum::ABSOLUTE_URL);
-        d($absoluteUrl);
         #идентификация абсолютного адреса
         if($absoluteUrl == false) {
             $fileContent = file_get_contents($departureFilename);
         } else {
-            @list($schema, $host, $url) = $absoluteUrl;
+            @list(, $schema, $host, $url) = $absoluteUrl;
             if(! empty($url)) {
                 $url = rawurlencode($url);
             }
