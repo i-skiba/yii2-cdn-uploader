@@ -189,6 +189,7 @@ class CdnConnection
                 if($res->getStatusCode() == 200) {
                     $result = $res->getBody()->getContents();
                 }
+                d($res->getHeaders());
             } catch (\Exception $e) {
                 $this->addError($e->getMessage());
             }
