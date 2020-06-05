@@ -193,7 +193,7 @@ class CdnConnection
                 $headers = $res->getHeaders();
                 if(isset($headers['Content-Type'])) {
                     if($headers['Content-Type'] === 'application/octet-stream') {
-                        $result = stream_get_contents($departureFilename);
+                        $result = readfile($departureFilename);
                         d($result);
                     }
                 }
