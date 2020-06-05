@@ -82,6 +82,12 @@ class CdnConnection
         if($absoluteUrl == false) {
             $fileContent = file_get_contents($departureFilename);
         } else {
+            @list($schema, $host, $url) = $absoluteUrl;
+            if(! empty($url)) {
+                $url = rawurlencode($url);
+            }
+
+            $departureFilename = "{$schema}://{$host}{$url}";
             $client = new Client(['timeout' => 0]);
             $res = null;
             try {
