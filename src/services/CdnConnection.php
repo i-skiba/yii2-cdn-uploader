@@ -65,7 +65,7 @@ class CdnConnection
      * @throws CdnConnectionException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function upload($authToken, $destinationFilename, $departureFilename, $viaHttpClient = true)
+    public function upload($authToken, $destinationFilename, $departureFilename)
     {
         if (null == self::$instance->getConfigItem('upload')) {
             throw new CdnConnectionException('Upload url must be set.');
@@ -162,13 +162,13 @@ class CdnConnection
      * @return false|string|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getUploadContent($departureFilename, $viaHttpClient = true)
+    private function getUploadContent($departureFilename)
     {
         $result = null;
         $regexParser = new RegexParser();
         $absoluteUrl = $regexParser->parse($departureFilename, RegexPatternEnum::ABSOLUTE_URL);
         #идентификация абсолютного адреса
-        if($viaHttpClient === false || $absoluteUrl == false) {
+        if($absoluteUrl == false) {
             $result = file_get_contents($departureFilename);
         } else {
             @list(, $schema, $host, $url) = $absoluteUrl;
