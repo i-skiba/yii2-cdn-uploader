@@ -78,7 +78,6 @@ class CdnConnection
             'name' => $filename
         ];
         $fileContent = $this->getUploadContent($departureFilename);
-        d($fileContent);
         if(! $fileContent) {
             $this->addError('Failed to get resource content');
 
@@ -189,14 +188,13 @@ class CdnConnection
                 if($res->getStatusCode() == 200) {
                     $result = $res->getBody()->getContents();
                 }
-
-                $headers = $res->getHeaders();
-                if(isset($headers['Content-Type'])) {
-                    if($headers['Content-Type'] === 'application/octet-stream') {
-                        $result = readfile($departureFilename);
-                        d($result);
-                    }
-                }
+//
+//                $headers = $res->getHeaders();
+//                if(isset($headers['Content-Type'])) {
+//                    if($headers['Content-Type'] === 'application/octet-stream') {
+//                        $result = readfile($departureFilename);
+//                    }
+//                }
             } catch (\Exception $e) {
                 $this->addError($e->getMessage());
             }
