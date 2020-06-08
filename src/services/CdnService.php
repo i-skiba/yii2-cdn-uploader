@@ -60,7 +60,7 @@ class CdnService extends Service
             return $this->connector;
         }
 
-        $this->connector = CdnConnection::getInstance($this->getConfigItem('api.routes'));
+        $this->connector = CdnConnector::getInstance($this->getConfigItem('api'));
 
         return $this->connector;
     }

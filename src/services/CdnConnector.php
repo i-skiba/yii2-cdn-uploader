@@ -14,7 +14,7 @@ use GuzzleHttp\Client;
  *
  * @author kamaelkz <kamaelkz@yandex.kz>
  */
-class CdnConnection
+class CdnConnector
 {
     use ConfigAwareTrait;
     use ErrorsAwareTrait;
@@ -23,6 +23,10 @@ class CdnConnection
      * @var CdnConnection
      */
     private static $instance = null;
+    /**
+     * @var string
+     */
+    private $host;
 
     /**
      * Получение экземпляра
@@ -38,6 +42,7 @@ class CdnConnection
         }
 
         self::$instance->setConfig($config);
+        self::$instance->host = self::$instance->getConfigItem('host');
 
         return self::$instance;
     }
@@ -50,7 +55,7 @@ class CdnConnection
         self::$instance = null;
     }
 
-    private function __construct() {}
+    private function __construct($config) {}
 
     private function __clone() {}
 
@@ -67,10 +72,6 @@ class CdnConnection
      */
     public function upload($authToken, $destinationFilename, $departureFilename)
     {
-        if (null == self::$instance->getConfigItem('upload')) {
-            throw new CdnConnectionException('Upload url must be set.');
-        }
-
         $pathParts = explode('/', $destinationFilename);
         $filename = array_pop($pathParts);
         $params = [
@@ -78,6 +79,7 @@ class CdnConnection
             'name' => $filename
         ];
         $fileContent = $this->getUploadContent($departureFilename);
+
         if(! $fileContent) {
             $this->addError('Failed to get resource content');
 
@@ -214,10 +216,6 @@ class CdnConnection
      */
     public function delete($authToken, $token)
     {
-        if (null == self::$instance->getConfigItem('delete')) {
-            throw new CdnConnectionException('Delete url must be set.');
-        }
-
         $client = new Client(['timeout' => 0]);
         try {
             $res = $client->request(
@@ -254,11 +252,6 @@ class CdnConnection
      */
     public function info($authToken, $token)
     {
-
-        if (null == self::$instance->getConfigItem('info')) {
-            throw new CdnConnectionException('Info url must be set.');
-        }
-
         $client = new Client(['timeout' => 0]);
         try {
             $res = $client->request(
@@ -295,10 +288,6 @@ class CdnConnection
      */
     public function list($authToken, $directory)
     {
-        if (null == self::$instance->getConfigItem('list')) {
-            throw new CdnConnectionException('List url must be set.');
-        }
-
         $client = new Client(['timeout' => 0]);
         $res = $client->request(
             'GET',
@@ -325,7 +314,11 @@ class CdnConnection
      */
     private function getUploadUrl()
     {
-        return $this->getConfigItem('upload');
+        if (null == ($route = self::$instance->getConfigItem('routes.upload'))) {
+            throw new CdnConnectionException('Upload url must be set.');
+        }
+
+        return "{$this->host}{$route}";
     }
 
     /**
@@ -337,7 +330,11 @@ class CdnConnection
      */
     private function getInfoUrl($token)
     {
-        return "{$this->getConfigItem('info')}/{$token}";
+        if (null == ($route = self::$instance->getConfigItem('routes.info'))) {
+            throw new CdnConnectionException('Info url must be set.');
+        }
+
+        return "{$this->host}{$route}/{$token}";
     }
 
     /**
@@ -349,7 +346,11 @@ class CdnConnection
      */
     private function getDeleteUrl($token)
     {
-        return "{$this->getConfigItem('delete')}/{$token}";
+        if (null == ($route = self::$instance->getConfigItem('routes.delete'))) {
+            throw new CdnConnectionException('Delete url must be set.');
+        }
+
+        return "{$this->host}{$route}/{$token}";
     }
 
     /**
@@ -361,7 +362,11 @@ class CdnConnection
      */
     private function getListUrl($directory)
     {
-        return "{$this->getConfigItem('list')}/{$directory}";
+        if (null == ($route = self::$instance->getConfigItem('routes.list'))) {
+            throw new CdnConnectionException('List url must be set.');
+        }
+
+        return "{$this->getConfigItem('host')}{$route}/{$directory}";
     }
 
     /**
