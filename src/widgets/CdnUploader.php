@@ -3,11 +3,10 @@
 namespace kamaelkz\yii2cdnuploader\widgets;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use concepture\yii2logic\widgets\WidgetTrait;
 use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
+use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
 
 /**
  * Аплодер
@@ -25,27 +24,26 @@ class CdnUploader extends Widget
      * @var int
      */
     public $width = 0;
-
     /**
      * @var int
      */
     public $height = 0;
-
     /**
      * @var string
      */
     public $strategy = 'default';
-
     /**
      * @var int
      */
     public $resizeBigger = true;
-
     /**
      * @var
      */
     public $small = false;
-
+    /**
+     * @var bool
+     */
+    public $croppie = false;
     /**
      * @var string
      */
@@ -56,6 +54,12 @@ class CdnUploader extends Widget
      */
     public function run()
     {
+        $view = $this->getView();
+        UploaderBundle::register($view);
+        if($this->croppie) {
+            CroppieBundle::register($view);
+        }
+
         $this->setOptions();
         $this->options['id'] = $this->getId();
         $this->options['class'] = 'cdnuploader';
@@ -91,7 +95,7 @@ class CdnUploader extends Widget
             'small' => $this->small,
         ]);
 
-        $this->registerBundle();
+
         $this->registerScript();
     }
 

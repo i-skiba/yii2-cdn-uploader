@@ -1,6 +1,6 @@
 <?php
 
-namespace kamaelkz\yii2cdnuploader\widgets;
+namespace kamaelkz\yii2cdnuploader\widgets\bundles;
 
 use concepture\yii2logic\bundles\Bundle as BaseBundle;
 
@@ -10,10 +10,18 @@ use concepture\yii2logic\bundles\Bundle as BaseBundle;
 class CdnHelperBundle extends BaseBundle
 {
     public $js = [
-        'script/helper.js',
+        'helpers/cdn.helper.js',
     ];
 
     public $depends = [
         'yii\web\YiiAsset',
     ];
+
+    /**
+     * @inheritDoc
+     */
+    public function extendPath()
+    {
+        return '/plugins/fileupload';
+    }
 }

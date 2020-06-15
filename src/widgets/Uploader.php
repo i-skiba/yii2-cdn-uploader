@@ -2,12 +2,10 @@
 
 namespace kamaelkz\yii2cdnuploader\widgets;
 
-use Yii;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use concepture\yii2logic\widgets\WidgetTrait;
 use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
+use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
 
 /**
  * Аплодер
@@ -37,12 +35,22 @@ class Uploader extends Widget
      * @var string
      */
     public $template = 'uploader_view';
+    /**
+     * @var bool
+     */
+    public $croppie = false;
 
     /**
      * @inheritdoc
      */
     public function run()
     {
+        $view = $this->getView();
+        UploaderBundle::register($view);
+        if($this->croppie) {
+            CroppieBundle::register($view);
+        }
+
         $this->setOptions();
         $this->options['id'] = $this->getId();
         $this->options['class'] = 'uploader';
@@ -70,7 +78,6 @@ class Uploader extends Widget
             'pojo' => $pojo
         ]);
 
-        $this->registerBundle();
         $this->registerScript();
     }
 
