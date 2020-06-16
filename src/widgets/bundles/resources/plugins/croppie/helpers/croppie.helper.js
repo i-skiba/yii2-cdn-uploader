@@ -1,12 +1,21 @@
 var CroppieHelper = function() {
-
+    this.instance = null;
+    this.resources = {
+        origin: '',
+        crop : ''
+    };
+    this.$modal = null;
 };
 
-CroppieHelper.getParams = function (instance) {
+CroppieHelper.prototype.setInstance = function(instance) {
+    this.instance = instance;
+};
+
+CroppieHelper.prototype.getParams = function () {
     let params = {};
-    if (instance !== null) {
+    if (this.instance !== null) {
         let iter = 1;
-        let points = instance.get().points;
+        let points = this.instance.get().points;
 
         for (let item in points) {
             if (iter > 4) {
@@ -39,15 +48,37 @@ CroppieHelper.getParams = function (instance) {
     return params;
 };
 
-CroppieHelper.getCdnParams = function(instance, resizeSize) {
-    let object = CroppieHelper.getCropParams(instance);
+CroppieHelper.prototype.getRequestParams = function(strategy) {
+    var  object = this.getParams();
+
     return {
         positionX: object.x1,
         positionY: object.y1,
         cropWidth: object.width,
         cropHeight: object.height,
-        resizeWidth: resizeSize.width,
-        resizeHeight: resizeSize.height,
-        source: 'profile'
+        resizeWidth: this.instance.options.viewport.width,
+        resizeHeight: this.instance.options.viewport.height,
+        source: strategy
     };
 };
+
+CroppieHelper.prototype.open = function($wrapper, info, options) {
+    var self = this,
+        $modalContainer = $wrapper.find('#uploader-crop-wrappper'),
+        image = new Image();
+
+    image.src = info.url;
+    image.onload = function () {
+        $modalContainer.html(image);
+        var instance = new Croppie($(this)[0], options);
+        self.setInstance(instance);
+
+        self.resources.origin = info;
+        self.instance.bind({
+            url: $(this).attr('src'),
+        }).then(function () {});
+
+        self.$modal = $wrapper.find('#uploader-crop-modal');
+        self.$modal.modal('show');
+    };
+}

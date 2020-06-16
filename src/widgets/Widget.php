@@ -2,6 +2,8 @@
 
 namespace kamaelkz\yii2cdnuploader\widgets;
 
+use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
@@ -23,31 +25,34 @@ abstract class Widget extends InputWidget
      * @var string
      */
     public $hint;
-
     /**
      * @var string
      */
     public $buttonWrapClass = 'bg-primary';
-
     /**
      * @var string
      */
     public $buttonIconClass = 'icon-upload';
-
     /**
      * @var array
      */
     public $clientOptions = [];
-
     /**
      * @var array
      */
     public $clientEvents = [];
-
     /**
      * @var string
      */
     public $template = 'view';
+    /**
+     * @var string
+     */
+    public $cropAttribute;
+    /**
+     * @var array
+     */
+    public $cropOptions = [];
 
     /**
      * @inheritdoc
@@ -56,6 +61,23 @@ abstract class Widget extends InputWidget
     {
         parent::init();
         $this->options['plugin-options']['url'] = Url::to([$this->url]);
+    }
+
+    public function run()
+    {
+        $view = $this->getView();
+        if($this->cropAttribute) {
+            if(! $this->cropOptions) {
+                $this->cropOptions = $this->getDefaultCropOptions();
+            }
+
+            $this->options['data-crop-options'] = $this->cropOptions;
+            CroppieBundle::register($view);
+        }
+
+        UploaderBundle::register($view);
+
+        parent::run();
     }
 
     /**
@@ -77,5 +99,25 @@ abstract class Widget extends InputWidget
         }
 
         $view->registerJs(implode("\n", $js));
+    }
+
+    /**
+     * @return array
+     */
+    private function getDefaultCropOptions()
+    {
+        return [
+            'viewport' => [
+                'width' => 124,
+                'height' => 124
+            ],
+            'boundary' => [
+                'width' => '100%',
+                'height' => 316
+            ],
+            'showZoomer' => true,
+            'enableResize' => false,
+            'enableOrientation' => true
+        ];
     }
 }

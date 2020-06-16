@@ -1,6 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Json;
+
+$originPath = $pojo->path ?? null;
+$cropPath = $cropPojo->path ?? null;
 
 ?>
 <div class="cdn-upload-wrapper">
@@ -41,7 +45,7 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
-    <div class="card file-info <?= (! $pojo->path) ? 'd-none' : null;?> mt-2">
+    <div class="card file-info <?= (! $originPath) ? 'd-none' : null;?> mt-2">
         <div class="card-body">
             <div class="d-flex align-items-start flex-nowrap">
                 <div>
@@ -61,7 +65,13 @@ use yii\helpers\Html;
                 </div>
 
                 <div class="list-icons list-icons-extended ml-auto">
-                    <a href="#" class="list-icons-item file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
+                    <?php if($cropPath) :?>
+                    <?php $info = Json::encode($pojo->attributes); ?>
+                        <a href="#" class="list-icons-item uploader-crop-edit-control">
+                            <i class="icon-pencil6 top-0"></i>
+                        </a>
+                    <?php endif;?>
+                    <a href="#" class="list-icons-item uploader-delete-control" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
                         <i class="icon-bin top-0"></i>
                     </a>
                 </div>
@@ -79,9 +89,12 @@ use yii\helpers\Html;
                             $options['data-height'] = $pojo->height;
                         }
                     ?>
-                    <?= Html::img(Yii::$app->cdnService->path($pojo->path), $options);?>
+                    <?= Html::img(Yii::$app->cdnService->path($cropPath ?? $originPath), $options);?>
                 <?php endif;?>
             </div>
         </div>
     </div>
+    <?php if(isset($crop)) : ?>
+        <?= $crop;?>
+    <?php endif;?>
 </div>

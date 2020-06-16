@@ -5,8 +5,6 @@ namespace kamaelkz\yii2cdnuploader\widgets;
 use Yii;
 use yii\helpers\Html;
 use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
-use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
-use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
 
 /**
  * Аплодер
@@ -40,10 +38,7 @@ class CdnUploader extends Widget
      * @var
      */
     public $small = false;
-    /**
-     * @var bool
-     */
-    public $croppie = false;
+
     /**
      * @var string
      */
@@ -54,12 +49,7 @@ class CdnUploader extends Widget
      */
     public function run()
     {
-        $view = $this->getView();
-        UploaderBundle::register($view);
-        if($this->croppie) {
-            CroppieBundle::register($view);
-        }
-
+        parent::run();
         $this->setOptions();
         $this->options['id'] = $this->getId();
         $this->options['class'] = 'cdnuploader';
@@ -71,6 +61,13 @@ class CdnUploader extends Widget
             }
 
             $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
+            if($this->cropAttribute) {
+                if($this->model->{$this->cropAttribute}) {
+                    $options['value'] = $this->model->{$this->cropAttribute};
+                }
+
+                $input .= Html::activeHiddenInput($this->model, $this->cropAttribute, $options);
+            }
         } else {
             $this->options['hiddenOptions'] = [
                 'value' => $this->value
@@ -82,8 +79,13 @@ class CdnUploader extends Widget
         # todo: адаптировать под файл, пока изображения хватит
         $pojo = new CdnImagePojo();
         $pojo->load($this->model->{$this->attribute} ?? $this->value, '');
+        $cropPojo = null;
+        if($this->cropAttribute) {
+            $cropPojo = new CdnImagePojo();
+            $cropPojo->load($this->model->{$this->cropAttribute}, '');
+        }
 
-        echo  $this->render($this->template, [
+        $params = [
             'input' => $input,
             'id' => $this->getId(),
             'hint' => $this->hint,
@@ -92,11 +94,14 @@ class CdnUploader extends Widget
             'model' => $this->model,
             'attribute' => $this->attribute,
             'pojo' => $pojo,
+            'cropPojo' => $cropPojo,
             'small' => $this->small,
-        ]);
+        ];
+        if($this->cropAttribute) {
+            $params['crop'] = $this->render('crop');
+        }
 
-
-        $this->registerScript();
+        echo $this->render($this->template, $params);
     }
 
     /**
