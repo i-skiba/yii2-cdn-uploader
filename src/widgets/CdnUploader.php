@@ -62,10 +62,8 @@ class CdnUploader extends Widget
 
             $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
             if($this->cropAttribute) {
-                if($this->model->{$this->cropAttribute}) {
-                    $options['value'] = $this->model->{$this->cropAttribute};
-                    $input .= Html::activeHiddenInput($this->model, $this->cropAttribute, $options);
-                }
+                $options['value'] = $this->model->{$this->cropAttribute};
+                $input .= Html::activeHiddenInput($this->model, $this->cropAttribute, $options);
             }
         } else {
             $this->options['hiddenOptions'] = [
