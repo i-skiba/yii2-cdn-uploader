@@ -72,9 +72,9 @@ abstract class Widget extends InputWidget
             }
 
             $this->options['data-crop-options'] = $this->cropOptions;
-            CroppieBundle::register($view);
         }
 
+        CroppieBundle::register($view);
         UploaderBundle::register($view);
 
         parent::run();
