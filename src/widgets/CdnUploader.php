@@ -95,7 +95,9 @@ class CdnUploader extends Widget
             'small' => $this->small,
         ];
         if($this->cropAttribute) {
-            $params['crop'] = $this->render('crop');
+            $params['crop'] = $this->render('crop', [
+                'uploaderId' => static::getId()
+            ]);
         }
 
         echo $this->render($this->template, $params);

@@ -5,6 +5,11 @@ var CroppieHelper = function() {
         crop : ''
     };
     this.$modal = null;
+    this.moveModal = false;
+    this.selectors = {
+        'modal' : '.uploader-crop-modal',
+        'modalContainer' : '.uploader-crop-modal-wrappper'
+    };
 };
 
 CroppieHelper.prototype.setInstance = function(instance) {
@@ -49,7 +54,7 @@ CroppieHelper.prototype.getParams = function () {
 };
 
 CroppieHelper.prototype.getRequestParams = function(strategy) {
-    var  object = this.getParams();
+    var object = this.getParams();
 
     return {
         positionX: object.x1,
@@ -64,21 +69,43 @@ CroppieHelper.prototype.getRequestParams = function(strategy) {
 
 CroppieHelper.prototype.open = function($wrapper, info, options) {
     var self = this,
-        $modalContainer = $wrapper.find('#uploader-crop-wrappper'),
-        image = new Image();
+        image = new Image(),
+        $body = $('body');
 
     image.src = info.url;
     image.onload = function () {
-        $modalContainer.html(image);
-        var instance = new Croppie($(this)[0], options);
-        self.setInstance(instance);
+        var $modalContainer = $body.find(self.selectors.modalContainer);
+        $modalContainer.html('');
+        if(self.instance !== null) {
+            self.instance.destroy();
+        }
 
+        $modalContainer.html($(this));
+        var instance = new Croppie($(this).get(0), options);
+        self.setInstance(instance);
         self.resources.origin = info;
         self.instance.bind({
             url: $(this).attr('src'),
-        }).then(function () {});
+        });
 
-        self.$modal = $wrapper.find('#uploader-crop-modal');
+        if(self.moveModal === false) {
+            self.$modal = $body.find(self.selectors.modal);
+            self.$modal.appendTo('body');
+            self.moveModal = true;
+            self.$modal = $body.find(self.selectors.modal);
+        }
+
+        var pjaxSelector = magicModal.pjax.selector,
+            content = $(pjaxSelector).has('div');
+
+        if(content.length > 0) {
+            magicModal.hide();
+            self.$modal.off('hidden.bs.modal');
+            self.$modal.on('hidden.bs.modal', function(e){
+                magicModal.show();
+            });
+        }
+
         self.$modal.modal('show');
     };
 }

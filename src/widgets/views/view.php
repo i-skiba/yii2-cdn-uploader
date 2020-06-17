@@ -65,8 +65,8 @@ $cropPath = $cropPojo->path ?? null;
                 </div>
 
                 <div class="list-icons list-icons-extended ml-auto">
-                    <?php if($cropPath) :?>
-                    <?php $info = Json::encode($pojo->attributes); ?>
+                    <?php if($originPath) :?>
+                        <?php $info = Json::encode($pojo->attributes); ?>
                         <a href="#" class="list-icons-item uploader-crop-edit-control">
                             <i class="icon-pencil6 top-0"></i>
                         </a>

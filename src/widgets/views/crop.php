@@ -1,4 +1,4 @@
-<div id="uploader-crop-modal" class="modal">
+<div class="uploader-crop-modal modal" data-uploader-id="<?= $uploaderId;?>">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
                 </h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div id="uploader-crop-wrappper" class="modal-body pb-0">
+            <div class="modal-body pb-0 uploader-crop-modal-wrappper">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal">
