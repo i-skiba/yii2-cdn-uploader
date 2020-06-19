@@ -5,9 +5,9 @@ namespace kamaelkz\yii2cdnuploader\widgets;
 use yii\widgets\InputWidget;
 use yii\helpers\Url;
 use concepture\yii2logic\widgets\WidgetTrait;
-use kamaelkz\yii2cdnuploader\widgets\bundles\VibrantScriptsBundle;
-use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
 use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\VibrantBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
 
 /**
  * Базовый виджет загрузчика
@@ -78,7 +78,7 @@ abstract class Widget extends InputWidget
         CroppieBundle::register($view);
         UploaderBundle::register($view);
         if($this->colorSelectionAttribute) {
-            VibrantScriptsBundle::register($view);
+            VibrantBundle   ::register($view);
         }
 
         parent::run();

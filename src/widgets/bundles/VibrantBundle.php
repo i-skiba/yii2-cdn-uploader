@@ -10,7 +10,7 @@ use concepture\yii2logic\bundles\Bundle;
  *
  * @author kamaelkz <kamaelkz@yandex.kz>
  */
-class VibrantScriptsBundle extends Bundle
+class VibrantBundle extends Bundle
 {
     /**
      * @var array
