@@ -1,0 +1,3 @@
+.selected-color {height:35px;width:200px;cursor:not-allowed;border:1px solid #ddd;}
+.selected-color.clickable {cursor:pointer;}
+.selector-container .cs-color {display:inline-block;width:50px;height:35px;cursor:pointer;box-shadow:0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);background-color:black;margin-right:3%;}
