@@ -85,6 +85,7 @@ var colorSelector = {
 
 				let color = $(this).attr('data-color');
 				let cc = $(this).find('.color-code');
+				console.log(color);
 				cc.attr('value', color);
 				cc.next('.cs-color').css('background-color', '#' + color);
 				$(this).find('.selected-color').addClass('clickable');

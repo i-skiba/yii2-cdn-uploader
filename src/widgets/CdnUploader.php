@@ -82,6 +82,8 @@ class CdnUploader extends Widget
             $cropPojo->load($this->model->{$this->cropAttribute}, '');
         }
 
+        $widgetId = static::getId();
+        $wrapperId = "{$widgetId}_wrapper";
         $params = [
             'input' => $input,
             'id' => $this->getId(),
@@ -93,10 +95,19 @@ class CdnUploader extends Widget
             'pojo' => $pojo,
             'cropPojo' => $cropPojo,
             'small' => $this->small,
+            'wrapperId' => $wrapperId
         ];
         if($this->cropAttribute) {
             $params['crop'] = $this->render('crop', [
-                'uploaderId' => static::getId()
+                'uploaderId' => $widgetId
+            ]);
+        }
+
+        if($this->colorSelectionAttribute && $this->model) {
+            $params['colorSelection'] = $this->render('colorSelection', [
+                'model' => $this->model,
+                'attribute' => $this->colorSelectionAttribute,
+                'wrapperId' => $wrapperId
             ]);
         }
 

@@ -7,7 +7,7 @@ $originPath = $pojo->path ?? null;
 $cropPath = $cropPojo->path ?? null;
 
 ?>
-<div class="cdn-upload-wrapper">
+<div id="<?= $wrapperId;?>" class="cdn-upload-wrapper">
     <div>
         <?php if($small) :?>
             <div  class="btn <?= $buttonWrapClass;?> btn-labeled btn-file btn-icon">
@@ -96,5 +96,8 @@ $cropPath = $cropPojo->path ?? null;
     </div>
     <?php if(isset($crop)) : ?>
         <?= $crop;?>
+    <?php endif;?>
+    <?php if(isset($colorSelection)) : ?>
+        <?= $colorSelection;?>
     <?php endif;?>
 </div>

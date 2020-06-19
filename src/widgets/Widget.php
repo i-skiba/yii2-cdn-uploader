@@ -2,15 +2,12 @@
 
 namespace kamaelkz\yii2cdnuploader\widgets;
 
-use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
-use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
-use Yii;
-use yii\base\InvalidConfigException;
-use yii\helpers\Html;
 use yii\widgets\InputWidget;
 use yii\helpers\Url;
 use concepture\yii2logic\widgets\WidgetTrait;
-use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
+use kamaelkz\yii2cdnuploader\widgets\bundles\VibrantScriptsBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\CroppieBundle;
+use kamaelkz\yii2cdnuploader\widgets\bundles\UploaderBundle;
 
 /**
  * Базовый виджет загрузчика
@@ -53,6 +50,10 @@ abstract class Widget extends InputWidget
      * @var array
      */
     public $cropOptions = [];
+    /**
+     * @var string
+     */
+    public $colorSelectionAttribute;
 
     /**
      * @inheritdoc
@@ -76,6 +77,9 @@ abstract class Widget extends InputWidget
 
         CroppieBundle::register($view);
         UploaderBundle::register($view);
+        if($this->colorSelectionAttribute) {
+            VibrantScriptsBundle::register($view);
+        }
 
         parent::run();
     }
