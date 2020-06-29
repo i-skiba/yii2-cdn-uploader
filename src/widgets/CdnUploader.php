@@ -95,7 +95,8 @@ class CdnUploader extends Widget
             'pojo' => $pojo,
             'cropPojo' => $cropPojo,
             'small' => $this->small,
-            'wrapperId' => $wrapperId
+            'wrapperId' => $wrapperId,
+            'cropAttribute' => $this->cropAttribute
         ];
         if($this->cropAttribute) {
             $params['crop'] = $this->render('crop', [

@@ -65,13 +65,13 @@ $cropPath = $cropPojo->path ?? null;
                 </div>
 
                 <div class="list-icons list-icons-extended ml-auto">
-                    <?php if($originPath) :?>
+                    <?php if($originPath && $cropAttribute) :?>
                         <?php $info = Json::encode($pojo->attributes); ?>
-                        <a href="#" class="list-icons-item uploader-crop-edit-control">
-                            <i class="icon-pencil6 top-0"></i>
+                        <a href="#" class="list-icons-item uploader-crop-edit-control" title="<?= Yii::t('yii2admin', 'Обрезать');?>">
+                            <i class="icon-crop top-0"></i>
                         </a>
                     <?php endif;?>
-                    <a href="#" class="list-icons-item uploader-delete-control" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>>
+                    <a href="#" class="list-icons-item uploader-delete-control" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?> title="<?= Yii::t('yii2admin', 'Удалить');?>">
                         <i class="icon-bin top-0"></i>
                     </a>
                 </div>
@@ -94,6 +94,7 @@ $cropPath = $cropPojo->path ?? null;
             </div>
         </div>
     </div>
+    
     <?php if(isset($crop)) : ?>
         <?= $crop;?>
     <?php endif;?>
