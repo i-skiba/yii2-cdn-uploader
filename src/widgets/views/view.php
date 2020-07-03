@@ -94,7 +94,7 @@ $cropPath = $cropPojo->path ?? null;
             </div>
         </div>
     </div>
-    
+
     <?php if(isset($crop)) : ?>
         <?= $crop;?>
     <?php endif;?>
