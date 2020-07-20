@@ -66,7 +66,7 @@ var componentCdnUploader = (function() {
                                 function(response)
                                 {
                                     if(response.status !== 'success') {
-                                        ComponentNotify.pNotify(ComponentNotify.statuses.error, response.message);
+                                        componentNotify.pNotify(componentNotify.statuses.error, response.message);
 
                                         return;
                                     }
@@ -85,7 +85,7 @@ var componentCdnUploader = (function() {
                         },
                         done : function(e, data) {
                             if(data.result.failure) {
-                                ComponentNotify.pNotify(ComponentNotify.statuses.error, data.result.failure);
+                                componentNotify.pNotify(componentNotify.statuses.error, data.result.failure);
 
                                 return;
                             }
@@ -128,7 +128,7 @@ var componentCdnUploader = (function() {
                         fail : function(e, data) {
                             var messaga = data.jqXHR.status + ' : ' + data.jqXHR.statusText;
 
-                            ComponentNotify.pNotify(ComponentNotify.statuses.error, messaga);
+                            componentNotify.pNotify(componentNotify.statuses.error, messaga);
                         },
                         progressall : function(e, data) {
                             var progress = parseInt(data.loaded / data.total * 100, 10),
@@ -175,7 +175,7 @@ var componentCdnUploader = (function() {
                     formData,
                     function (response) {
                         if (response.status !== 'success') {
-                            ComponentNotify.pNotify(ComponentNotify.statuses.error, response.message);
+                            componentNotify.pNotify(componentNotify.statuses.error, response.message);
 
                             return;
                         }
@@ -231,7 +231,7 @@ var componentCdnUploader = (function() {
                     formData,
                     function (response) {
                         if (response.status !== 'success') {
-                            ComponentNotify.pNotify(ComponentNotify.statuses.error, response.message);
+                            componentNotify.pNotify(componentNotify.statuses.error, response.message);
 
                             return;
                         }
@@ -323,7 +323,7 @@ var componentCdnUploader = (function() {
                 },
                 done : function(e, data) {
                     if(data.result.failure) {
-                        ComponentNotify.pNotify(ComponentNotify.statuses.error, data.result.failure);
+                        componentNotify.pNotify(componentNotify.statuses.error, data.result.failure);
 
                         return;
                     }
@@ -365,7 +365,7 @@ var componentCdnUploader = (function() {
                 fail : function(e, data) {
                     var messaga = data.jqXHR.status + ' : ' + data.jqXHR.statusText;
 
-                    ComponentNotify.pNotify(ComponentNotify.statuses.error, messaga);
+                    componentNotify.pNotify(componentNotify.statuses.error, messaga);
                 },
                 progressall : function(e, data) {
                     var $self = $(this);

@@ -126,14 +126,28 @@ class CdnUploader extends Widget
             'files_limit' => 1
         ];
 
-        if($this->width > 0 && $this->height > 0) {
-            $params['size'] = "{$this->width}x{$this->height}";
-            if(! $this->hint) {
+        if(! $this->hint) {
+            if ($this->width && $this->height) {
+                $width = $this->width;
+                $height = $this->height;
+                if (
+                    is_array($width)
+                    && is_array($height)
+                    && count($width) === 2
+                    && count($height) === 2
+                ) {
+                    $hintValue = "{$width[0]}x{$width[1]}-{$height[0]}x{$height[1]}";
+                    # хак для цдн
+                    $params['size'] = "{$width[0]}x{$height[0]}-{$width[1]}x{$height[1]}";
+                } else {
+                    $params['size'] = "{$width}x{$height}";
+                    $hintValue = $params['size'];
+                }
+
                 $this->hint = Yii::t(
-                    'yii2admin', 'Допустимый размер изображения: {w}x{h} px',
+                    'yii2admin', 'Допустимый размер изображения: {value} px',
                     [
-                        'w' => $this->width,
-                        'h' => $this->height
+                        'value' => $hintValue,
                     ]
                 );
             }
