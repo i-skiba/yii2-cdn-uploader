@@ -36,6 +36,7 @@ var componentCdnUploader = (function() {
                 var $wrapper = $(this).closest('.cdn-upload-wrapper');
 
                 $(this).fileupload({
+                        dropZone : $(this),
                         add : function (e, data) {
                             var authUrl,
                                 $self = $(this),
@@ -47,7 +48,6 @@ var componentCdnUploader = (function() {
                                 });
                                 authUrl = Component.getAuthUrl(options);
                             }
-
 
                             $self.parent().addClass('disabled');
                             $self.attr('disabled', 'disabled');
@@ -434,6 +434,10 @@ var componentCdnUploader = (function() {
     Component.helpers.crop = new CroppieHelper();
 
     $(document).ready(function () {
+        $(document).bind('drop dragover', function (e) {
+            e.preventDefault();
+        });
+
         Component.initialization();
     });
 

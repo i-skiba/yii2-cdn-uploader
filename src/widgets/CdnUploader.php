@@ -52,6 +52,8 @@ class CdnUploader extends Widget
         parent::run();
         $this->setOptions();
         $this->options['id'] = $this->getId();
+        $widgetId = static::getId();
+        $wrapperId = "{$widgetId}_wrapper";
         $this->options['class'] = 'cdnuploader';
         if(! empty($this->model) && ! empty($this->attribute)) {
             if($this->model->{$this->attribute}) {
@@ -82,8 +84,6 @@ class CdnUploader extends Widget
             $cropPojo->load($this->model->{$this->cropAttribute}, '');
         }
 
-        $widgetId = static::getId();
-        $wrapperId = "{$widgetId}_wrapper";
         $params = [
             'input' => $input,
             'id' => $this->getId(),
