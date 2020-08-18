@@ -393,6 +393,35 @@ class CdnConnector
     {
         return "Response status code does is {$responseCode} expected {$expectedCode}";
     }
+
+    /**
+     * Обработка ответа от цдн для записи в Бд
+     *
+     * @param $cdnResponse
+     * @return array
+     */
+    public function parseRequest($cdnResponse)
+    {
+        if (! isset($cdnResponse['success'])) {
+
+            return [];
+        }
+
+        $cdnData = (array) $cdnResponse['success'][0] ?? [];
+        $replaceArray = ['cdn/static/'];
+        $cdnData['url'] = str_replace($replaceArray, '', $cdnData['url']);
+        $cdnData['path'] = str_replace($replaceArray, 'static/', $cdnData['path']);
+        if (is_array($cdnData['thumbs'])) {
+            foreach ($cdnData['thumbs'] as $key => $thumb) {
+                $thumbData = (array) $thumb;
+                $thumbData['url'] = str_replace($replaceArray, '', $thumbData['url']);
+                $thumbData['path'] = str_replace($replaceArray, 'static/', $thumbData['path']);
+                $cdnData['thumbs'] = $thumbData;
+            }
+        }
+
+        return $cdnData;
+    }
 }
 
 /**
