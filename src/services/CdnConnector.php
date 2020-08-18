@@ -400,7 +400,7 @@ class CdnConnector
      * @param $cdnResponse
      * @return array
      */
-    public function parseRequest($cdnResponse)
+    public function parseResponse($cdnResponse)
     {
         if (! isset($cdnResponse['success'])) {
 
