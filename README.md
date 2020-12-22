@@ -1,7 +1,7 @@
 Подключение :
 
 backend|frontend/config/main.php
-```php
+```php 
     # конфигурация приложения (из коробки return)
     $config = [
         ...
