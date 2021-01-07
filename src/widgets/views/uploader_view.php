@@ -35,19 +35,19 @@ use yii\helpers\Url;
         <div class="card-body">
             <div class="d-flex align-items-start flex-nowrap">
                 <div>
-                    <div class="font-weight-semibold mr-2 file-name">
-                        <?php if($pojo->path):?>
-                            <?= $pojo->path;?>
-                        <?php endif;?>
-                    </div>
-                    <span class="font-size-sm text-muted">
-                        <?= Yii::t('yii2admin', 'Размер');?>:
-                        <span class="file-size">
-                            <?php if($pojo->size):?>
-                                <?= $pojo->size;?>
-                            <?php endif;?>
-                        </span>
-                    </span>
+<!--                    <div class="font-weight-semibold mr-2 file-name">-->
+<!--                        --><?php //if($pojo->path):?>
+<!--                            --><?//= $pojo->path;?>
+<!--                        --><?php //endif;?>
+<!--                    </div>-->
+<!--                    <span class="font-size-sm text-muted">-->
+<!--                        --><?//= Yii::t('yii2admin', 'Размер');?><!--:-->
+<!--                        <span class="file-size">-->
+<!--                            --><?php //if($pojo->size):?>
+<!--                                --><?//= $pojo->size;?>
+<!--                            --><?php //endif;?>
+<!--                        </span>-->
+<!--                    </span>-->
                 </div>
                 <div class="list-icons list-icons-extended ml-auto">
                     <a href="#" class="list-icons-item local-file-delete" <?= $pojo->id ? "data-file-id='{$pojo->id}'" : null; ?>  <?= $model ? "data-model-id='{$modelId}'" : null; ?> data-delete-url="image-delete" data-model-attribute="<?= $attribute?>">
@@ -56,16 +56,18 @@ use yii\helpers\Url;
                 </div>
             </div>
         </div>
-        <div class="card-img-actions mx-1 mb-1 file-display">
-            <?php if($pojo->path):?>
-                <?php
-                $options = ['class' => 'card-img img-fluid'];
-//                    if($pojo->width && $pojo->height) {
-//                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
-//                    }
-                ?>
-                <?= Html::img($pojo->path, $options);?>
-            <?php endif;?>
+        <div class="card-body">
+            <div class="card-img-actions mx-1 mb-1 file-display text-center">
+                <?php if($pojo->path):?>
+                    <?php
+                    $options = ['class' => 'card-img img-fluid'];
+    //                    if($pojo->width && $pojo->height) {
+    //                        $options['style'] = "width:{$pojo->width}px; height:{$pojo->height}px";
+    //                    }
+                    ?>
+                    <?= Html::img($pojo->path, $options);?>
+                <?php endif;?>
+            </div>
         </div>
     </div>
 </div>
