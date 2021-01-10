@@ -33,6 +33,10 @@ class Uploader extends Widget
      * @var string
      */
     public $template = 'uploader_view';
+    /**
+     * @var
+     */
+    public $small = false;
 
     /**
      * @inheritDoc
@@ -51,17 +55,29 @@ class Uploader extends Widget
         $this->setOptions();
         $this->options['id'] = $this->getId();
         $this->options['class'] = 'uploader';
-        if($this->model->{$this->attribute}) {
-            $this->options['hiddenOptions'] = [
-                'value' => $this->model->{$this->attribute}
-            ];
-        }
+        if(! empty($this->model) && ! empty($this->attribute)) {
+            if($this->model->{$this->attribute}) {
+                $this->options['hiddenOptions'] = [
+                    'value' => $this->model->{$this->attribute}
+                ];
+            }
 
-        $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
+            $input = Html::activeFileInput($this->model, $this->attribute, $this->options);
+            if($this->cropAttribute) {
+                $options['value'] = $this->model->{$this->cropAttribute};
+                $input .= Html::activeHiddenInput($this->model, $this->cropAttribute, $options);
+            }
+        } else {
+            $this->options['hiddenOptions'] = [
+                'value' => $this->value
+            ];
+            $input = Html::hiddenInput($this->name, $this->value, $this->options['hiddenOptions'])
+                . Html::fileInput($this->name, $this->value, $this->options);
+        }
 
         # todo: адаптировать под файл, пока изображения хватит
         $pojo = new CdnImagePojo();
-        $pojo->load($this->model->{$this->attribute}, '');
+        $pojo->load($this->model->{$this->attribute} ?? $this->value, '');
 
         echo  $this->render($this->template, [
             'input' => $input,
@@ -72,7 +88,8 @@ class Uploader extends Widget
             'model' => $this->model,
             'modelId' => $this->modelId,
             'attribute' => $this->attribute,
-            'pojo' => $pojo
+            'pojo' => $pojo,
+            'small' => $this->small,
         ]);
     }
 

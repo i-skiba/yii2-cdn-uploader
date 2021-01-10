@@ -6,13 +6,20 @@ use yii\helpers\Url;
 ?>
 <div class="cdn-upload-wrapper">
     <div>
-        <div class="btn <?= $buttonWrapClass;?> btn-labeled btn-labeled-left btn-file">
-            <b>
+        <?php if($small) :?>
+            <div  class="btn <?= $buttonWrapClass;?> btn-labeled btn-file btn-icon">
                 <i class="<?= $buttonIconClass;?>"></i>
-            </b>
-            <?= Yii::t('yii2admin', 'Выберите файл');?>
-            <?= $input ?>
-        </div>
+                <?= $input ?>
+            </div>
+        <?php else :?>
+            <div class="btn <?= $buttonWrapClass;?> btn-labeled btn-labeled-left btn-file">
+                <b>
+                    <i class="<?= $buttonIconClass;?>"></i>
+                </b>
+                <?= Yii::t('yii2admin', 'Выберите файл');?>
+                <?= $input ?>
+            </div>
+        <?php endif;?>
     </div>
     <?php if(! empty($hint)) :?>
         <div class="mt-1">
@@ -21,9 +28,13 @@ use yii\helpers\Url;
            </span>
         </div>
     <?php else: ?>
-        <?= Html::activeHint($model, $attribute, ['class' => 'text-muted mt-1']);?>
+        <?php if($model && $attribute) :?>
+            <?= Html::activeHint($model, $attribute, ['class' => 'text-muted mt-1']);?>
+        <?php endif; ?>
     <?php endif; ?>
-    <?= Html::error($model, $attribute, ['class' => 'text-danger form-text']);?>
+    <?php if($model && $attribute) :?>
+        <?= Html::error($model, $attribute, ['class' => 'text-danger form-text']);?>
+    <?php endif; ?>
     <div class="">
         <div class="progress mt-2 d-none">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" style="width: 0%;">
